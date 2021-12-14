@@ -1,10 +1,20 @@
 <template>
+  <Header/>
   <router-view />
 </template>
+<script>
 
+import Header from "@/components/header.vue";
+export default {
+  components: {
+    Header,
+  },
+}
+</script>
 <style>
 #app {
-  height:100%;
   width: 100%;
+  max-width: 1400px;
+  margin: auto;
 }
 </style>

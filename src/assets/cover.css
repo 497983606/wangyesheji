@@ -2,5 +2,9 @@ body,html{
     padding: 0;
     margin: 0;
     height: 100%;
-    width: 100%;
+    width: 100%; 
+     background-color: #000;
+    color: #fff;
+    font-size: 14px;
+    font-family: '宋体',-apple-system,BlinkMacSystemFont,Noto Sans,Helvetica Neue,Helvetica,Nimbus Sans L,Arial,PingFang SC,Liberation Sans,Hiragino Sans GB,Noto Sans CJK SC,Source Han Sans SC,Source Han Sans CN,Microsoft YaHei,Wenquanyi Micro Hei,WenQuanYi Zen Hei,ST Heiti,SimHei,WenQuanYi Zen Hei Sharp,sans-serif;
 }
