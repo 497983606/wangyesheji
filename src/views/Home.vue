@@ -1,7 +1,7 @@
 <template>
   <div class="list">
-    <dl v-for="(v, key) in list" :key="key" @click="route()">
-      <dt>{{ key }}</dt>
+    <dl v-for="v in list" :key="v.time" @click="$router.push({name: 'Detail', query: { path: v.title.replace(' ', '')}})">
+      <dt>{{ v.title }}</dt>
       <dd>{{ v.describe }}</dd>
       <p>{{ time(Number(v.time)) }}</p>
     </dl>
@@ -42,13 +42,13 @@ export default {
   },
   data(){
     return {
-      list: {}
+      list: []
     }
   },
   async mounted(){
     let res = await Axios.get('./post/db.json')
         if(res.status == 200){
-          this.list = res.data
+          this.list = res.data.sort((x,y) => y.time - x.time)
         }
   }
 };
