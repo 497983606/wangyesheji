@@ -4,7 +4,7 @@
     {{ info[1] }}
     <p>{{ time(Number(info[0])) }}</p>
     </h1>
-    <div v-html="arc" class="markdown-style"></div>
+    <div v-html="arc" class="markdown"></div>
   </div>
 </template>
 
