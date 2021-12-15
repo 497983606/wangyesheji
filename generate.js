@@ -37,6 +37,7 @@ const fileDisplay = filePath => {
                         }
                     }
                 })
+                
             })
         }
     })
