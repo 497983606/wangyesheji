@@ -90,7 +90,7 @@ export default {
   display: block;
   color: #fff;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 1.2em;
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 5px;
