@@ -1,14 +1,21 @@
 <template>
+<<<<<<< Updated upstream
   <div class="list">
     <dl v-for="v in list" :key="v.time" @click="$router.push({name: 'Detail', query: { path: v.title.replace(' ', '')}})">
       <dt>{{ v.title }}</dt>
       <dd>{{ v.describe }}</dd>
       <p>{{ time(Number(v.time)) }}</p>
     </dl>
+=======
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
+>>>>>>> Stashed changes
   </div>
 </template>
 
 <script>
+<<<<<<< Updated upstream
 import Axios from 'axios'
 
 const dateFormat = (fmt, date) => {
@@ -85,3 +92,15 @@ export default {
     color: rgba(255, 255, 255, 0.624);
   }
 </style>
+=======
+// @ is an alias to /src
+import HelloWorld from "@/components/HelloWorld.vue";
+
+export default {
+  name: "Home",
+  components: {
+    HelloWorld,
+  },
+};
+</script>
+>>>>>>> Stashed changes
