@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-<<<<<<< Updated upstream
     <h1> 关于我 </h1>
     <div v-html="arc" class="markdown"></div>
   </div>
@@ -39,8 +38,3 @@ export default {
   }
   
 </style>
-=======
-    <h1>This is an about page</h1>
-  </div>
-</template>
->>>>>>> Stashed changes
