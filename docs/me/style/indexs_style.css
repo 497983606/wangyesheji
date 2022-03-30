@@ -44,8 +44,8 @@ background: linear-gradient(180deg, #0482FF,#B5DAFF);}
 .textbox p{ line-height:1.8; color:#fff;font-size: 1.4em; letter-spacing:.05em;text-indent:2em;}
 .textbox a{ display:block; width:130px; height:35px; line-height:35px; border-radius:2px;-webkit-border-radius:2px;-moz-border-radius:2px; text-align:center; color:#fff; margin:20px auto; background-color:#0582FF; box-shadow:rgba(0,0,0,.2) 0px 2px 2px;}
 #endBox{ width:100%; position:relative; background:url(img/me/me3.jpg) center; background-size:100%;}
-#centerBox{ width:30%; text-align:center;overflow:hidden; margin:auto; position:relative;}
-#centerBox img#im{ width:50%; cursor:pointer; position:absolute; z-index:60; left:25%;}
+#centerBox{ width:30%; text-align:center;overflow:hidden; margin:auto; position:absolute; position: absolute;left: 50%;top: 50%; transform: translate(-50%, -50%);}
+#centerBox img#im{ width:50%; cursor:pointer; position:absolute; z-index:60;left: 50%;top: 50%; transform: translate(-50%, -50%);}
 #centerBox img#rdgCenter{ width:100%;-webkit-animation:centerBox linear infinite 8s;animation:centerBox linear infinite 8s;-moz-animation:centerBox linear infinite 8s;}
 .loopLine{ width:80px; height:13px; position:absolute; background:url(img/me/rlloop.png) repeat-x;-webkit-animation:loopLine linear infinite 2s;animation:loopLine linear infinite 2s;-moz-animation:loopLine linear infinite 2s;}
 .closeBnt{ background:url(img/navIcon.png) center bottom no-repeat !important;}

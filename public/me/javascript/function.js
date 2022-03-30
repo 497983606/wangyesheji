@@ -1,19 +1,7 @@
-//centerBox 
-$(document).ready(function(){
-centerHeight()
-	function centerHeight(){
-		windowHeight = $(window).height();
-		centerBoxHeight = $('#rdgCenter').height();
-		$('#rdgCenter').css('margin-top',(windowHeight-centerBoxHeight)/2+'px')
-		centerBoxHeights = $('#im').height();
-		$('#im').css('top',(windowHeight-centerBoxHeights)/2+'px')
-                               }	
-	$(window).resize(function(){centerHeight()});
-        
-	});
+
 //boxResize
 
-	var layout1 = $('#layout_01,#layout_02,#layout_03,#centerBox,.scene1_layout_box,#endBox,#layout_04,#layout_05,#layout_06,.me1-bg,#me1pic-bg,#me2pic-bg,.me1msg');
+	var layout1 = $('#layout_01,#layout_02,#layout_03,.scene1_layout_box,#endBox,#layout_04,#layout_05,#layout_06,.me1-bg,#me1pic-bg,#me2pic-bg,.me1msg');
 		function windWH(){
 			var windowHeight = $(window).height();
 			    windowWidth = $(window).width();
@@ -31,7 +19,7 @@ centerHeight()
 //nav
 $(function(){
 	var i = 0;
-	$('#im,#nav_bnt,#mobBnt').click(function(){	
+	$('#im, #nav_bnt,#mobBnt').click(function(){	
 			i++;	
 		if(i%2){
 			$(this).css('background-position','bottom center');
