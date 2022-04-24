@@ -1,7 +1,6 @@
 const fs = require('fs')
 const args = process.argv                        // 传参
 const path = require('path');                    //路径
-const { describe } = require('yargs');
 const filePath = path.resolve('./public/post/md');    //文件路径
 
 let json = []
