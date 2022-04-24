@@ -29,7 +29,7 @@ const fileDisplay = filePath => {
                                 title:contentArr[1],
                                 describe: contentArr[2],
                                 img: contentArr[3],
-                                path:'./post/md/'+ filename
+                                path:'./post/md/'+ filename.replace(/\s+/g,"")
                             })
                             let error = fs.writeFileSync('./public/post/db.json', JSON.stringify(json), 'utf8')
                             if(!error) console.log('生成文档列表成功！')

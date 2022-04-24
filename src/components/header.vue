@@ -66,6 +66,10 @@ export default {
   padding: 20px 0;
   text-align: center;
 }
+.not-alow{
+  opacity: .5;
+  cursor: not-allowed;
+}
 .about-icon i{
   font-size: 30px;
   padding: 5px;

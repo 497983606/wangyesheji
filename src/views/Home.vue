@@ -2,8 +2,10 @@
   <div class="list">
     <dl v-for="v in list" :key="v.time" @click="$router.push({name: 'Detail', query: { path: v.title.replace(' ', '')}})">
       <dt>{{ v.title }}</dt>
-      <dd>{{ v.describe }}</dd>
-      <p>{{ time(Number(v.time)) }}</p>
+      <div>
+        <img :src="v.img" v-if="v.img && v.img.indexOf('./post/') > -1"> 
+        <dd>{{ v.describe }} <p> {{ time(Number(v.time)) }}</p></dd>
+      </div>
     </dl>
   </div>
 </template>
@@ -67,9 +69,20 @@ export default {
     padding: 20px;
     margin: 20px 0;
   }
-  .list dl p{
+  .list dd p{
     font-family: Arial, Helvetica, sans-serif;
     color: rgba(255, 255, 255, 0.287);
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .list div{
+    overflow: hidden;
+  }
+  .list div img{
+    height: 100px;
+    margin-right: 10px;
+    display: block;
+    float: left;
   }
   .list dt{
     font-size: 32px;
@@ -80,7 +93,6 @@ export default {
     width: 100%;
     font-size: 20px;
     line-height: 1.5;
-    padding: 10px 0;
     margin: 0;
     color: rgba(255, 255, 255, 0.624);
   }
