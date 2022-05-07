@@ -4,7 +4,7 @@
     <p class="about-icon">
       <i class="iconfont icon-shouye" @click="$router.push('/')"></i>
       <i class="iconfont icon-icon-test8"></i>
-      <i class="iconfont icon-icon-test9" @click="$router.push('About')"></i>
+      <i class="iconfont icon-icon-test9" @click="toAbout()"></i>
     </p>
     <a class="link" :href="'/#/detail?path='+ pre.title" v-if="pre"><i class="iconfont icon-icon-test16"></i>
       {{ pre.title }}
@@ -23,6 +23,11 @@ export default {
       list: [],
       pre: null,
       next: null
+    }
+  },
+  methods:{
+    toAbout(){
+      window.location.href = "https://wangyesheji.cn/me"
     }
   },
   watch: {

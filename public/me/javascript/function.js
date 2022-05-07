@@ -34,7 +34,10 @@ $(function(){
 	$('#cutOne,#mobBnt').click(function(){
 		$('#fallPageOne').fadeOut(1000);
 		$('#fallPageTwo').fadeIn(3000);
-		});
+	});
+	$('#im').click(function(){
+		window.location.href="https://wangyesheji.cn"
+	})
 //waves
       Waves.displayEffect();
 	});
