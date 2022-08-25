@@ -40,10 +40,11 @@ module.exports = ( tmpls, markdowns ) => {
   fsExtra.copy(_tmplPath + '/assets', _htmlPath+ '/assets')
 
   const files = {}, 
-        allFullFile = {'index.htm': "", 'list.htm': "", 'arc.htm': "", 'page.htm': ""},
+        allFullFile = {'index.htm': "", 'list.htm': "", 'arc.htm': "", 'rss.htm': "", 'page.htm': ""},
         mds = [],
         webSite = config.website,
-        arcList = {}
+        arcList = {},
+        allArc = []
   let nav = `<a href="/"> ${ webSite.lang.home } </a>`
   const tmplFiles = tmpls.filter(i => i.indexOf('.htm') > -1)
         tmplFiles.forEach(i => {
@@ -137,13 +138,18 @@ module.exports = ( tmpls, markdowns ) => {
       }else{
         path = _htmlPath + '/' + key + '/post/' + (Number(idx) + webSite.postStart) + '.html'
         webPath = '/' + key + '/post/' + (Number(idx) + webSite.postStart) + '.html'
+        allArc.push({ 
+          title: i.title, 
+          img: i.img,
+          time: i.time, 
+          type: key, path: webPath
+        })
       } 
       fs.writeFileSync( path, arc)
-      arcList[key].push({ ...i, type: navItme.type, path: webPath})
+      arcList[key].push({ ...i, type: key, path: webPath})
+      
     })
   }
-
-  fs.writeFileSync(_htmlPath + '/index.html', allFullFile['index.htm'], 'utf8')
 
   const list = {}
 
@@ -189,6 +195,32 @@ module.exports = ( tmpls, markdowns ) => {
     }
   }
 
+  console.log('Begin to genrante rss and news')
+
+  const _allArc = allArc.sort((a, b) => b.time - a.time)
+  
+  let _rss = "<ul>", _new = "<ul>" ; 
+  for(let o in _allArc){
+    let item = _allArc[o]
+    
+    let _itemHtml = `
+    <li> ${ item.img ? ('<img src='+item.img+' />') : '' }
+      <span>${ dateFormat(webSite.dateFmt, new Date(item.time))}</span>
+      <a href="${item.path}"> ${item.title} </a>
+      <a class="_type" href="/${item.type}">${ webSite.nav[item.type] }</a>
+    </li>
+    `
+    if( o <= webSite.news ) _new += _itemHtml;
+    _rss += _itemHtml
+  }
+
+  allFullFile['index.htm'] = allFullFile['index.htm'].replace(new RegExp(Regs.newsReg), _new + '</ul>')
+  allFullFile['rss.htm'] = allFullFile['rss.htm'].replace(new RegExp(Regs.rssReg), _rss + '</ul>')
+  
+
+  fs.writeFileSync(_htmlPath + '/index.html', allFullFile['index.htm'], 'utf8')
+  fs.writeFileSync(_htmlPath + '/rss.html', allFullFile['rss.htm'], 'utf8')
+  
 }
 
 // CLEAR DIR

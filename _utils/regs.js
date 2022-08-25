@@ -10,6 +10,8 @@ module.exports = {
   pageNumReg: /\{\$pageNum:end\/\}/g,
   arcBodyReg: /\{\$arcBody:end\/\}/g,
   listReg: /\{\$list:end\/\}/g,
+  newsReg: /\{\$news:end\/\}/g,
+  rssReg: /\{\$rss:end\/\}/g,
   websiteTitleReg: /\{\$websiteTitle:end\/\}/g,
   websiteBaseUrlReg: /\{\$websiteBaseUrl:end\/\}/g,
   discussReg: /(?<=\{\$discuss:).+(?= end\/\})/g,
