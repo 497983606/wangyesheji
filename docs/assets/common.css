@@ -69,7 +69,7 @@ div._main{
 }
 ._arc h1{
     text-align: center;
-    line-height: 1.2;
+    line-height: 1.4;
     font-size: 30px;
     padding: 20px 0 10px 0;
 }
@@ -141,7 +141,7 @@ div._main{
 ._content .arc_list li h3{
     font-size: 24px;
     padding-bottom: 20px;
-    line-height: 1.2;
+    line-height: 1.4;
     font-weight: bold;
 }
 ._content .arc_list li h3 a{
