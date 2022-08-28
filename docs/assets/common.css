@@ -1,14 +1,3 @@
-@font-face {
-    font-family: "_song"; 
-    src: url('songti.woff') format('woff');
-    font-display: swap;
-}
-@font-face {
-    font-family: "_song";
-    src: url('songti-bold.woff') format('woff');
-    font-weight:bold;
-    font-display: swap;
-}
 html, body,ul,li,ol,p, h1,h2,h3,h4,h5{
     padding: 0;
     margin: 0;
@@ -16,8 +5,7 @@ html, body,ul,li,ol,p, h1,h2,h3,h4,h5{
 }
 html,body{
     background-color: #333;
-    font-family: Cambria,'_song', '宋体', Arial;
-    font-variant-caps: ;
+    font-family: Cambria, '宋体', songti !important ;
     font-size: 18px;
     line-height: 1.5;
     color: #000;
@@ -140,7 +128,7 @@ div._main{
     border-bottom: 1px #eee dashed;
 }
 ._content .arc_list li h3{
-    font-size: 22px;
+    font-size: 24px;
     padding-bottom: 20px;
     line-height: 1.2;
     font-weight: bold;
@@ -173,11 +161,8 @@ div._main{
     color: #fff;
     
 }
-._footer .__right a{
+._footer span._right a{
     margin-left: 20px;
-}
-._footer .__right .___nav{
-    display: none;
 }
 ._content .arc_rss li{
     padding: 5px 0;
@@ -193,11 +178,10 @@ div._main{
 /* markdown */
 ._markdown{
     line-height: 1.8;
-    margin: 20px 0;
 }
 ._markdown blockquote{
     background-color: #eee;
-    margin: 10px 0;
+    margin: 20px 0;
     padding: 10px;
     border-left: 2px solid #ddd;
     overflow: hidden;
@@ -212,7 +196,7 @@ div._main{
     padding: 10px;
 }
 ._markdown code{
-    font-family: 'Courier New', '_song', '宋体' !important;
+    font-family: 'Courier New', '宋体', songti !important;
     background-color: #333;
     padding: 2px 5px;
     color: #fff;
@@ -245,8 +229,12 @@ div._main{
 ._markdown table th:nth-last-child(1), ._markdown table td:nth-last-child(1){
     border-right: none;
 }
+._markdown ul{
+    margin: 10px 0;
+    padding-left: 1em;
+}
 ._markdown ul li {
-    list-style:inside;
+    list-style: square;
 }
 ._markdown pre code{
     background-color: transparent;
@@ -277,14 +265,8 @@ div._main{
     ._header ._nav{
         display: none;
     }
-    ._footer .__left{
-        display: none;
-    }
-    ._footer .__right .___nav{
-        display: inline;
-    }
     ._header span._logo{
         left: 50%;
-        transform: translateX(-50%) scale(.9);
+        transform: translateX(-50%) scale(.8);
     }
 }
