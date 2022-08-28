@@ -185,7 +185,7 @@ module.exports = ( tmpls, markdowns ) => {
           <h3> <a href="${i.path}">${ i.title }</a></h3>
           <p class="bottom_box"> 
             ${ i.img ? '<img src='+ i.img +'/>' : ''} 
-            <span class="_date">${ dateFormat(webSite.dateFmt, new Date(i.time)) }</span>
+            <span class="_date"><i class="iconfont icon-riqi"></i>  ${ dateFormat(webSite.dateFmt, new Date(i.time)) }</span>
             <span class="_desc">
               ${ i.describe }
             </span>
@@ -248,7 +248,7 @@ module.exports = ( tmpls, markdowns ) => {
         <p class="bottom_box">
           ${ item.img ? ('<img src='+item.img+' />') : '' }
           <span class="_date">
-            ${ dateFormat(webSite.dateFmt, new Date(item.time))} 
+            <i class="iconfont icon-riqi"></i> ${ dateFormat(webSite.dateFmt, new Date(item.time))} 
             <a class="_type" href="${baseUrl}/${item.type}">${ webSite.nav[item.type].title }</a>
           </span>
           <span class="_desc">

@@ -192,6 +192,7 @@ div._main{
 /* markdown */
 ._markdown{
     line-height: 1.8;
+    margin: 20px 0;
 }
 ._markdown blockquote{
     background-color: #eee;
