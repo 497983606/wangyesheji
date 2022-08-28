@@ -161,8 +161,11 @@ div._main{
     color: #fff;
     
 }
-._footer span._right a{
+._footer .__right a{
     margin-left: 20px;
+}
+._footer .__right .___nav{
+    display: none;
 }
 ._content .arc_rss li{
     padding: 5px 0;
@@ -268,5 +271,11 @@ div._main{
     ._header span._logo{
         left: 50%;
         transform: translateX(-50%) scale(.8);
+    }
+    ._footer .__left{
+        display: none;
+    }
+    ._footer .__right .___nav{
+        display: inline;
     }
 }
