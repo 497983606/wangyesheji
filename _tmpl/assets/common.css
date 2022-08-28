@@ -163,7 +163,7 @@ div._main{
 }
 ._footer{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px 0;
     color: rgba(255, 255, 255, 0.458);
     font-size: 18px !important;
@@ -172,7 +172,7 @@ div._main{
     color: #fff;
     
 }
-._footer a.iconfont{
+._footer span._right a{
     margin-left: 20px;
 }
 ._content .arc_rss li{
@@ -195,6 +195,9 @@ div._main{
     margin: 10px 0;
     padding: 10px;
     border-left: 2px solid #ddd;
+    overflow: hidden;
+    box-sizing: border-box;
+    overflow-x: auto;
 }
 ._markdown pre{
     line-height: 1.5;
@@ -260,4 +263,17 @@ div._main{
 }
 ._markdown h5{
     font-size: 18px;
+}
+@media screen and (max-width: 780px) {
+    ._content{
+        width: calc(100% - 40px);
+        padding: 20px;
+    }
+    ._header ._nav{
+        display: none;
+    }
+    ._header span._logo{
+        left: 50%;
+        transform: translateX(-50%) scale(.8);
+    }
 }
