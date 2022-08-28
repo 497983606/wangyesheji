@@ -45,7 +45,7 @@ module.exports = ( tmpls, markdowns ) => {
         webSite = config.website,
         arcList = {},
         allArc = []
-  let nav = `<a href="/"> ${ webSite.lang.home } </a>`
+  let nav = "", baseUrl = webSite.baseUrl
   const tmplFiles = tmpls.filter(i => i.indexOf('.htm') > -1)
         tmplFiles.forEach(i => {
           let file = fs.readFileSync(_tmplPath + '\\' + i)
@@ -71,7 +71,7 @@ module.exports = ( tmpls, markdowns ) => {
     let i = webSite.nav[key]
     fs.mkdirSync(_htmlPath +'/'+ key)
     if(i.type == 'list') fs.mkdirSync(_htmlPath +'/'+ key + '/post')
-    nav += `<a href="${ '/'+ key }/"> ${ i.title } </a>` 
+    nav += `<a href="${ baseUrl + '/'+ key }/"> ${ i.title } </a>` 
   }
   
   console.log('Begin to create common tags ')
@@ -115,7 +115,7 @@ module.exports = ( tmpls, markdowns ) => {
   // GENRANTE ARC
   for(let key in webSite.nav){
     let navItme = webSite.nav[key]
-    let arcs = mds.filter(m => m.type.replace(/\s*/g, '') == navItme.category.replace(/\s*/g, '')).sort((x, y) => y.time - x.time)
+    let arcs = mds.filter(m => m.type.replace(/\s*/g, '') == navItme.title.replace(/\s*/g, '')).sort((x, y) => y.time - x.time)
     arcList[key] = []
     arcs.forEach((i, idx) => {
       let arcRegs = ['arcPreReg', 'arcNextReg', 'arcBodyReg', 'titleReg', 'dateReg', 'thumbReg', 'descReg']
@@ -134,14 +134,15 @@ module.exports = ( tmpls, markdowns ) => {
       let path = "", webPath = ""
       if(navItme.type == 'page'){
         path = _htmlPath + '/' + key + '/index.html'
-        webPath = '/' + key + '/index.html'
+        webPath = baseUrl + '/' + key + '/index.html'
       }else{
         path = _htmlPath + '/' + key + '/post/' + (Number(idx) + webSite.postStart) + '.html'
-        webPath = '/' + key + '/post/' + (Number(idx) + webSite.postStart) + '.html'
+        webPath = baseUrl + '/' + key + '/post/' + (Number(idx) + webSite.postStart) + '.html'
         allArc.push({ 
           title: i.title, 
           img: i.img,
           time: i.time, 
+          describe: i.describe,
           type: key, path: webPath
         })
       } 
@@ -178,17 +179,19 @@ module.exports = ( tmpls, markdowns ) => {
           <p class="bottom_box"> 
             ${ i.img ? '<img src='+ i.img +'/>' : ''} 
             <span class="_date">${ dateFormat(webSite.dateFmt, new Date(i.time)) }</span>
-            <p class="_desc">
+            <span class="_desc">
               ${ i.describe }
-            </p>
+            </span>
           </p>
         </li>`
       })
       pageNum.forEach(i => {
-        pageStr += `<a ${ i == page ? 'class="cur_page"' : "" } href="/${key}/${i == 1 ? 'index' : i}.html"> ${ i } </a>`
+        pageStr += `<a ${ i == page ? 'class="cur_page"' : "" } href="${baseUrl}/${key}/${i == 1 ? 'index' : i}.html"> ${ i } </a>`
       })
 
       let newListFile = listFile.replace(new RegExp(Regs.listReg), listStr)
+          newListFile = newListFile.replace(new RegExp(Regs.titleReg), webSite.nav[key].title)
+          newListFile =  newListFile.replace(new RegExp(Regs.curPage), page == 1 ? '' : 'page_' + page)
           newListFile = newListFile.replace(new RegExp(Regs.pageNumReg), pageStr)
 
       fs.writeFileSync( _htmlPath + `/${ key }/${page == 1 ? 'index' : page}.html`, newListFile, 'utf8')
@@ -199,27 +202,71 @@ module.exports = ( tmpls, markdowns ) => {
 
   const _allArc = allArc.sort((a, b) => b.time - a.time)
   
-  let _rss = "<ul>", _new = "<ul>" ; 
+  let _rss = "<ul>", _new = "<ul>"; 
   for(let o in _allArc){
     let item = _allArc[o]
-    
     let _itemHtml = `
-    <li> ${ item.img ? ('<img src='+item.img+' />') : '' }
+    <li>
       <span>${ dateFormat(webSite.dateFmt, new Date(item.time))}</span>
       <a href="${item.path}"> ${item.title} </a>
-      <a class="_type" href="/${item.type}">${ webSite.nav[item.type] }</a>
+      <a class="_type" href="${baseUrl}/${item.type}">${ webSite.nav[item.type].title }</a>
     </li>
     `
-    if( o <= webSite.news ) _new += _itemHtml;
+    if( o <= webSite.news && !webSite.isBlog) _new += _itemHtml;
     _rss += _itemHtml
   }
-
-  allFullFile['index.htm'] = allFullFile['index.htm'].replace(new RegExp(Regs.newsReg), _new + '</ul>')
-  allFullFile['rss.htm'] = allFullFile['rss.htm'].replace(new RegExp(Regs.rssReg), _rss + '</ul>')
   
-
-  fs.writeFileSync(_htmlPath + '/index.html', allFullFile['index.htm'], 'utf8')
+  allFullFile['rss.htm'] = allFullFile['rss.htm'].replace(new RegExp(Regs.rssReg), _rss + '</ul>')
   fs.writeFileSync(_htmlPath + '/rss.html', allFullFile['rss.htm'], 'utf8')
+  
+  if(!webSite.isBlog){
+    allFullFile['index.htm'] = allFullFile['index.htm'].replace(new RegExp(Regs.newsReg), _new + '</ul>')
+    fs.writeFileSync(_htmlPath + '/index.html', allFullFile['index.htm'], 'utf8')
+  }else{
+    let listlen = webSite.listlen
+
+    let pageAll = parseInt(allArc.length / listlen) + ((allArc.length % listlen == 0) ? 0 : 1)
+    
+    for(let i = 0; i < pageAll; i++){
+      
+      let _list = "<ul class='arc_list'>", pageStr = "";
+      for(let j = 0; j < listlen; j++){
+        if(i*listlen+j > _allArc.length - 1) break;
+        
+        let item = _allArc[i*listlen + j]
+
+        _list += `
+        <li> 
+        <h3><a href="${item.path}"> ${item.title} </a></h3>
+        <p class="bottom_box">
+          ${ item.img ? ('<img src='+item.img+' />') : '' }
+          <span class="_date">
+            ${ dateFormat(webSite.dateFmt, new Date(item.time))} 
+            <a class="_type" href="${baseUrl}/${item.type}">${ webSite.nav[item.type].title }</a>
+          </span>
+          <span class="_desc">
+              ${ item.describe }
+          </span>
+        </p>
+        </li>
+        `
+      }
+      
+
+      for(let _i = 0; _i < pageAll; _i++){
+        pageStr += `<a ${ _i == i ? 'class="cur_page"' : "" } href="${baseUrl}/${_i == 0 ? 'index' : 'page_'+ _i}.html"> ${ _i + 1 } </a>`
+      }
+      
+      
+
+      let _indexFile = allFullFile['index.htm'].replace(new RegExp(Regs.listReg), _list + '</ul>')
+          _indexFile =  _indexFile.replace(new RegExp(Regs.curPage), i == 0 ? '' : 'page_' + (i+1) )
+          _indexFile = _indexFile.replace(new RegExp(Regs.pageNumReg), pageStr)
+
+      fs.writeFileSync( _htmlPath + `/${i == 0 ? 'index' : 'page_'+ i + 1 }.html`, _indexFile, 'utf8')
+      
+    }
+  }
   
 }
 

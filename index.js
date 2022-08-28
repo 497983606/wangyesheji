@@ -44,7 +44,7 @@ const startServe = () => {
 
 const newPost = (title, type) => {
   let date = new Date().getTime()
-  let str = `<!-- ${date} -->\n<!-- ${title} -->\n<!-- ${title} 的前言 -->\n<!-- ${title} 的缩略图url -->\n<!-- ${ type || config.website.defCategory} -->`
+  let str = `<!-- ${date} -->\n<!-- ${title} -->\n<!-- ${title} 的前言 -->\n<!--  -->\n<!-- ${ type || config.website.defCategory} -->`
   let error = fs.writeFileSync(_postPath + '/' + title+'.md', str, 'utf8')
   if(!error) console.log('Docment:'+title+'.md crtated--'+date)
 }

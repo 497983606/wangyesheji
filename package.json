@@ -15,29 +15,26 @@
       "baseUrl": "",
       "news": 10,
       "listlen": 20,
+      "isBlog": true,
       "dateFmt": "YYYY-mm-dd HH",
       "postStart": 1024,
       "defCategory": "Tech",
       "lang": {
         "pre": "Pre",
-        "next": "Next",
-        "home": "Home"
+        "next": "Next"
       },
       "nav": {
         "tech": {
-          "title": "Tech Research",
-          "type": "list",
-          "category": "Tech"
+          "title": "Tech",
+          "type": "list"
         },
         "life": {
-          "title": "My Life",
-          "type": "list",
-          "category": "Life"
+          "title": "Life",
+          "type": "list"
         },
         "about": {
           "title": "About",
-          "type": "page",
-          "category": "About"
+          "type": "page"
         }
       }
     }

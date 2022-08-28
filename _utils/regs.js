@@ -10,6 +10,7 @@ module.exports = {
   pageNumReg: /\{\$pageNum:end\/\}/g,
   arcBodyReg: /\{\$arcBody:end\/\}/g,
   listReg: /\{\$list:end\/\}/g,
+  curPage: /\{\$curPage:end\/\}/g,
   newsReg: /\{\$news:end\/\}/g,
   rssReg: /\{\$rss:end\/\}/g,
   websiteTitleReg: /\{\$websiteTitle:end\/\}/g,

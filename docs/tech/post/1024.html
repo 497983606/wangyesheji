@@ -1,14 +1,143 @@
-sdsdsdsds+++
-<a href="/"> Home </a><a href="/tech/"> Tech Research </a><a href="/life/"> My Life </a><a href="/about/"> About </a>
-xlchao-blog
-xlchao-blog
-Javascript 技术研究 
-2022-08-25 16
-Javascript 技术研究 的缩略图url 
-<!-- 1661414744173 -->
-<!-- Javascript 技术研究 -->
-<!-- Javascript 技术研究 的前言 -->
-<!-- Javascript 技术研究 的缩略图url -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assets/common.css">
+    <link rel="stylesheet" href="../../assets/iconfont.css">
+    <title>NodeJs 爬取节假日数据 -xlchao-blog</title>
+</head>
+<body>
+    <div class="_main">
+        <header class="_header">
+    <span class="_logo"> <a title="Back Home" href="/"></a> </span>
+    <span class="_nav"><a href="/tech/"> Tech </a><a href="/life/"> Life </a><a href="/about/"> About </a> <a href="/rss.html"><i  class="iconfont icon-dingyue"></i> Rss</a></span>
+</header>
+        
+        <main class="_content _arc">
+            <h1>NodeJs 爬取节假日数据 </h1>
+            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2022-02-15</span> <span class="type"> Life </span></p>
+            <div class="_markdown">
+                <!-- 1661651988063 -->
+<!-- NodeJs 爬取节假日数据 -->
+<!-- 工作需要，就尝试做了个 Nodejs 爬取假日的东西，很简单 -->
+<!--  -->
 <!-- Tech -->
 
+<blockquote>
+<p>爬取地址： <a href="https://fangjia.51240.com/2020__fangjia/">https://fangjia.51240.com/2020__fangjia/</a> </p>
+</blockquote>
+<h3 id="爬取格式">爬取格式</h3>
+<p>2019年节日放假安排查询</p>
+<table>
+<thead>
+<tr>
+<th>节日</th>
+<th align="left">放假时间</th>
+<th align="left">调休上班日期</th>
+<th align="left">放假天数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>元旦</td>
+<td align="left">12月30日~1月1日</td>
+<td align="left">12月29日（周六）上班</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>春节</td>
+<td align="left">2月4日(除夕）~2月10日</td>
+<td align="left">2月2日（周六）、2月3日（周日）上班</td>
+<td align="left">7天</td>
+</tr>
+<tr>
+<td>清明节</td>
+<td align="left">4月5日~4月7日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>劳动节</td>
+<td align="left">5月1日~5月4日</td>
+<td align="left">4月28日（星期日）、5月5日（星期日）上班</td>
+<td align="left">4天</td>
+</tr>
+<tr>
+<td>端午节</td>
+<td align="left">6月7日~6月9日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>国庆节</td>
+<td align="left">10月1日~10月7日</td>
+<td align="left">9月29日（周日）、10月12日（周六）上班</td>
+<td align="left">7天</td>
+</tr>
+<tr>
+<td>中秋节</td>
+<td align="left">9月13日~9月15日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+</tbody></table>
+<h3 id="使用">使用</h3>
+<p>安装：</p>
+<pre><code class="language-bash">npm install
+</code></pre>
+<p>启动：</p>
+<pre><code class="language-bash">node index.js
+</code></pre>
+<p>爬取： </p>
+<p>浏览器访问：<code>127.0.0.1/get/{year}</code></p>
+<p>爬取后，访问结果会持久化在 &#39;/views/holidays/{year}.json&#39;，可直接通过 <code>127.0.0.1/{year}.json</code> 访问</p>
+<p>返回结果：</p>
+<pre><code>{
+  year: {year},
+  holidays: {
+    01: {
+      01: 1,
+      02: 2
+    }
+    ……
+  }
+}
+</code></pre>
+<h3 id="代码说明">代码说明</h3>
+<h4 id="技术栈">技术栈</h4>
+<ul>
+<li>request</li>
+<li>express</li>
+<li>cheerio</li>
+<li>iconv</li>
+</ul>
+<h4 id="爬取">爬取</h4>
+<pre><code class="language-js">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/get/:year&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> { year } = req.<span class="hljs-property">params</span>
+  <span class="hljs-comment">// 这是爬取地址，替换的话请保证格式和上面的一致</span>
+  request.<span class="hljs-title function_">get</span>(<span class="hljs-string">`https://fangjia.51240.com/<span class="hljs-subst">${year}</span>__fangjia/`</span>, <span class="hljs-function">(<span class="hljs-params">err, response, body</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(err) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ err })
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>( { 
+      year,
+      <span class="hljs-attr">holiday</span>: <span class="hljs-title function_">operation</span>(body, year) 
+    })
+  })
+})
+</code></pre>
+<p>git：<a href="https://gitee.com/sk88/get_holiday">https://gitee.com/sk88/get_holiday</a></p>
 
+            </div>
+            <p class="_page"></p>
+        </main>
+        <footer class="_footer">
+    <span>POWER BY <a href="">EASYBLOG</a></span>
+    <span>
+        <a class="iconfont icon-tuite1" href=""></a>
+        <a class="iconfont icon-weixin" href=""></a>
+        <a class="iconfont icon-shuyi_jianli" href=""></a>
+    </span>
+</footer>
+    </div>
+</body>
+</html>
