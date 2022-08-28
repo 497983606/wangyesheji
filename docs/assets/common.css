@@ -1,11 +1,11 @@
 @font-face {
-    font-family: "_song"; /* Project id 3455087 */
-    src: url('./_songti.woff') format('woff');
+    font-family: "_song"; 
+    src: url('_songti.woff') format('woff');
     font-display: swap;
 }
 @font-face {
-    font-family: "_song"; /* Project id 3455087 */
-    src: url('./_songti_bold.woff') format('woff');
+    font-family: "_song";
+    src: url('_songti_bold.woff') format('woff');
     font-weight:bold;
     font-display: swap;
 }
@@ -192,6 +192,7 @@ div._main{
 /* markdown */
 ._markdown{
     line-height: 1.8;
+    margin: 20px 0;
 }
 ._markdown blockquote{
     background-color: #eee;
@@ -210,7 +211,7 @@ div._main{
     padding: 10px;
 }
 ._markdown code{
-    font-family: 'Courier New', '_song' !important;
+    font-family: 'Courier New', '_song', '宋体' !important;
     background-color: #333;
     padding: 2px 5px;
     color: #fff;
@@ -220,7 +221,7 @@ div._main{
     color: rgb(5, 61, 125);
 }
 ._markdown p{
-    margin-bottom: 10px;
+    margin: 20px 0;
 }
 ._markdown blockquote p{
     margin: 0;
