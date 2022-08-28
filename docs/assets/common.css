@@ -1,11 +1,11 @@
 @font-face {
     font-family: "_song"; 
-    src: url('_songti.woff') format('woff');
+    src: url('songti.woff') format('woff');
     font-display: swap;
 }
 @font-face {
     font-family: "_song";
-    src: url('_songti_bold.woff') format('woff');
+    src: url('songti-bold.woff') format('woff');
     font-weight:bold;
     font-display: swap;
 }
@@ -17,6 +17,7 @@ html, body,ul,li,ol,p, h1,h2,h3,h4,h5{
 html,body{
     background-color: #333;
     font-family: Cambria,'_song', '宋体', Arial;
+    font-variant-caps: ;
     font-size: 18px;
     line-height: 1.5;
     color: #000;
