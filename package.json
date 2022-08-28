@@ -11,7 +11,7 @@
   "config": {
     "port": 5002,
     "website": {
-      "title": "xlchao-blog",
+      "title": "Wheat October",
       "baseUrl": "",
       "news": 10,
       "listlen": 20,
