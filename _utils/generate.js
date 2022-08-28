@@ -43,7 +43,6 @@ module.exports = ( tmpls, markdowns ) => {
   if(fs.statSync(path.join(__dirname, '../CNAME')).isFile() ){
     
     let _cname = fs.readFileSync(path.join(__dirname, '../CNAME'))
-    console.log(111)
     fs.writeFileSync(_htmlPath + '/CNAME', _cname)
   }
 
@@ -210,7 +209,7 @@ module.exports = ( tmpls, markdowns ) => {
 
   const _allArc = allArc.sort((a, b) => b.time - a.time)
   
-  let _rss = "<ul>", _new = "<ul>"; 
+  let _rss = "<ul class='arc_rss'>", _new = "<ul class='arc_news'>"; 
   for(let o in _allArc){
     let item = _allArc[o]
     let _itemHtml = `

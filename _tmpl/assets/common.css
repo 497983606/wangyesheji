@@ -19,6 +19,7 @@ html,body{
     font-family: Cambria,'_song', '宋体', Arial;
     font-size: 18px;
     line-height: 1.5;
+    color: #000;
 }
 a{
     text-decoration: none;
@@ -85,7 +86,6 @@ div._main{
 }
 ._arc ._markdown img{
     max-width: 100%;
-    display: block;
     margin: 10px auto;
 }
 ._arc ._page{
@@ -132,20 +132,15 @@ div._main{
     background-color: #000;
     color: #fff;
 }
-._content .page_num a:nth-last-child(1){
-    border-radius:0 20px 20px 0 ;
-}
-._content .page_num a:nth-child(1){
-    border-radius:20px  0  0  20px;
-}
+
 ._content .arc_list li{
     padding: 20px 0;
     position: relative;
     border-bottom: 1px #eee dashed;
 }
 ._content .arc_list li h3{
-    font-size: 24px;
-    padding-bottom: 10px;
+    font-size: 22px;
+    padding-bottom: 20px;
     line-height: 1.2;
     font-weight: bold;
 }
@@ -156,7 +151,15 @@ div._main{
     display: none;
 }
 ._content .arc_list li ._desc, ._content .arc_list li ._date{
-    color: #666
+    color: #666;
+}
+._content .arc_list li ._date {
+    display: block;
+}
+._content .arc_list li ._date a{
+    padding: 2px 5px;
+    background-color: #eee;
+    border-radius: 12px;
 }
 ._footer{
     display: flex;
@@ -171,4 +174,90 @@ div._main{
 }
 ._footer a.iconfont{
     margin-left: 20px;
+}
+._content .arc_rss li{
+    padding: 5px 0;
+}
+._content .arc_rss span{
+    color: #999;
+}
+._content .arc_rss ._type{
+    padding: 2px 5px;
+    background-color: #eee;
+    border-radius: 12px;
+}
+/* markdown */
+._markdown{
+    line-height: 1.8;
+}
+._markdown blockquote{
+    background-color: #eee;
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 2px solid #ddd;
+}
+._markdown pre{
+    line-height: 1.5;
+    background-color: #333;
+    overflow: hidden;
+    overflow-x: auto;
+    padding: 10px;
+}
+._markdown code{
+    font-family: 'Courier New', '_song' !important;
+    background-color: #333;
+    padding: 2px 5px;
+    color: #fff;
+    font-size: 18px;
+}
+._markdown a{
+    color: rgb(5, 61, 125);
+}
+._markdown p{
+    margin-bottom: 10px;
+}
+._markdown blockquote p{
+    margin: 0;
+}
+._markdown table{
+    border-spacing:0px;
+    text-align: left;
+    border-top: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin: 20px auto;
+}
+._markdown table thead{
+    background-color: #eee;
+}
+._markdown table th,._markdown table td{
+    padding: 2px 5px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+._markdown table th:nth-last-child(1), ._markdown table td:nth-last-child(1){
+    border-right: none;
+}
+._markdown ul li {
+    list-style:inside;
+}
+._markdown pre code{
+    background-color: transparent;
+}
+._markdown h1,._markdown h2,._markdown h3,._markdown h4,._markdown h5,._markdown h6{
+    padding: 10px 0;
+}
+._markdown h1{
+    font-size: 26px;
+}
+._markdown h2{
+    font-size: 24px;
+}
+._markdown h3{
+    font-size: 22px;
+}
+._markdown h4{
+    font-size: 20px;
+}
+._markdown h5{
+    font-size: 18px;
 }

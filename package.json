@@ -16,7 +16,7 @@
       "news": 10,
       "listlen": 20,
       "isBlog": true,
-      "dateFmt": "YYYY-mm-dd HH",
+      "dateFmt": "YYYY-mm-dd",
       "postStart": 1024,
       "defCategory": "Tech",
       "lang": {
