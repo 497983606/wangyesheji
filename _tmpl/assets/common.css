@@ -1,14 +1,14 @@
-@font-face {
-    font-family: "_song"; /* Project id 3455087 */
+/* @font-face {
+    font-family: "_song";
     src: url('./songti.woff') format('woff');
     font-display: swap;
 }
 @font-face {
-    font-family: "_song"; /* Project id 3455087 */
+    font-family: "_song";
     src: url('./songtibold.woff') format('woff');
     font-weight:bold;
     font-display: swap;
-}
+} */
 html, body,ul,li,ol,p, h1,h2,h3,h4,h5{
     padding: 0;
     margin: 0;
@@ -210,7 +210,7 @@ div._main{
     padding: 10px;
 }
 ._markdown code{
-    font-family: 'Courier New',"_song",'宋体', songti !important;
+    font-family: 'Courier New', '宋体', songti !important;
     background-color: #333;
     padding: 2px 5px;
     color: #fff;
