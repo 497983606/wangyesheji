@@ -38,6 +38,14 @@ module.exports = ( tmpls, markdowns ) => {
   fs.mkdirSync(_htmlPath)
   console.log('copy asset to html dir.')
   fsExtra.copy(_tmplPath + '/assets', _htmlPath+ '/assets')
+  fsExtra.copy(path.join(__dirname, '../images'), _htmlPath + '/images')
+  
+  if(fs.statSync(path.join(__dirname, '../CNAME')).isFile() ){
+    
+    let _cname = fs.readFileSync(path.join(__dirname, '../CNAME'))
+    console.log(111)
+    fs.writeFileSync(_htmlPath + '/CNAME', _cname)
+  }
 
   const files = {}, 
         allFullFile = {'index.htm': "", 'list.htm': "", 'arc.htm': "", 'rss.htm': "", 'page.htm': ""},
