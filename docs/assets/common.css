@@ -16,7 +16,7 @@ html, body,ul,li,ol,p, h1,h2,h3,h4,h5{
 }
 html,body{
     background-color: #333;
-    font-family: Cambria, "_song", 'Linux Libertine','Georgia','Times',serif, '宋体', songti !important ;
+    font-family: Cambria, 'STSong', 'Source Han Serif SC', 'STZhangsong','Song SC','SimSun','Linux Libertine','Georgia','Times',serif, '宋体' !important ;
     font-size: 18px;
     line-height: 1.5;
     color: #000;
@@ -211,7 +211,7 @@ div._main{
     padding: 10px;
 }
 ._markdown code{
-    font-family: Cambria, "_song", 'Linux Libertine','Georgia','Times',serif, '宋体', songti !important ;
+    font-family: Cambria, 'STSong', 'Source Han Serif SC', 'STZhangsong','Song SC','SimSun','Linux Libertine','Georgia','Times',serif, '宋体' !important ;
     background-color: #eee;
     padding: 2px 5px;
     font-size: 18px;
