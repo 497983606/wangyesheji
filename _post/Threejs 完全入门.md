@@ -5,10 +5,12 @@
 <!-- Tech -->
 
 > 做了很久的 web3D 开发，也封装了一个比较好用的库，虽然没有达到自己要求的正式版本，但也经过了几次迭代，这其中学到了很多，这里做一次比较全面的总结。
+
+## 什么是 Threejs
+Threejs 是对 webGL 的封装，使其变得更加符合面向对象编程的语义，并且易于 Jacascript 开发者的理解，而 webGL 是对 openGL 的 web 移植，openGL 使用汇编作为编程语言，webGL 中的一个非常核心的代码 `Shader` 时使用 glsl 来编写
 ## 基本概念
 
 <center> <img src=https://wangyesheji.cn/images/pic/threejs-1.jpg /> </center>
-
 
 * [Object3d](https://threejs.org/docs/index.html#api/zh/core/Object3D)： 所有空间对象都是 threejs 的 Object3d 对象，继承了该构造函数（基类）的属性和方法 
 * [渲染器](https://threejs.org/docs/#api/zh/renderers/WebGLRenderer)：它是Three.js的主要对象，场景(Scene)和摄像机(Camera)都需要传入渲染器(Renderer)中，通过它将摄像机视椎体中的三维场景渲染成一个二维图片显示在画布上
