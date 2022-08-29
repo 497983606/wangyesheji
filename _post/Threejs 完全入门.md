@@ -77,15 +77,15 @@ Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、�
 
 ### 外部模型
 
-Threejs 可以通过插件加载外部模型，并且转换为 Threejs Mesh 对象，通常包含多个 Mash。Threejs 支持比较好的是 fbx 和 glb 格式的模型，一般我们使用开源的 [blender](https://www.blender.org/) 去建模和压缩，以减少其三角面数量，提升加载速度。
+Threejs 可以通过插件加载外部模型，并且转换为 Threejs Mesh 对象，通常包含多个 Mash 的组。Threejs 支持比较好的是 fbx 和 glb 格式的模型，一般我们使用开源的 [blender](https://www.blender.org/) 去建模和压缩，以减少其三角面数量，提升加载速度。
 
 ### 换肤
 
-每个 Mesh 都是由 geometry（几何体） 和 Material（材质）组成，我们可以动态改变任何参数，只需要在修改后执行一下 renderer ，但修改 geometry（几何体）后需要根据特定情况执行 mesh.update.updateMatrixWorld()，Threejs 的贴图非常强大，很多炫酷的东西都是通过贴图实现的，如扩散的圆圈，只要没有扫描效果都不需要用到着色器，贴图就可以搞定。
+每个 Mesh 都是由 geometry（几何体） 和 Material（材质）组成，我们可以动态改变任何参数，只需要在修改后执行一下 renderer ，但修改 geometry（几何体）后需要根据特定情况执行 mesh.update.updateMatrixWorld()，Threejs 的贴图非常强大好用，很多炫酷的东西都是通过贴图实现的，如扩散的圆圈，只要没有扫描效果都不需要用到着色器，贴图就可以搞定。
 
 ### 组
 
-多个集合体还可以形成组，因为 Mesh 对象的旋转操作只能围绕其原型，所以很多时候我们使用将其放入组的特定位置，然后旋转组的方式改变其旋转中心。注意旋转的参数是 弧度（欧拉角），如我们要旋转 90° 那么实际上这个数字是：90 / 180 * Math.PI
+多个几何体还可以形成组，因为 Mesh 对象的旋转操作只能围绕其原型，所以很多时候我们使用将其放入组的特定位置，然后旋转组的方式改变其旋转中心。注意旋转的参数是 弧度（欧拉角），如我们要旋转 90° 那么实际上这个数字是：90 / 180 * Math.PI
 
 ### 动画
 [Tween](https://tweenjs.github.io/tween.js/)，[GSAP](https://greensock.com/) 可以[补间](https://baike.baidu.com/item/%E8%A1%A5%E9%97%B4%E5%8A%A8%E7%94%BB)操作 `某个对象` 的 `某个属性` 在 `某段时间` 内按照 `某个滑动曲线` 运行，并且支持循环运动等。另外也可以逐帧改变某个属性去操作，注意使用 Clock 构造函数，保持不同帧率下相同运动大小。
@@ -101,7 +101,7 @@ Threejs 有一个 [/jsm/objects/Reflector](https://github.com/mrdoob/three.js/bl
 ### 大地坐标系（墨卡托、经纬度）
 直接将坐标数值应用在 Threejs 世界中（不需要展示球体，如果使用球体场景请移步 [cesium](https://cesium.com/platform/cesiumjs/) 当然你也可以使用 [mapbox](https://www.mapbox.com/) ），请记得将 camera.up 设置为 (0,0,1)的 Z 轴朝上的视角模式
 
-### 地形展示（刨面、等高线）
+### 地形展示（剖面、等高线）
 首先需要下载地形数据，一般为 DEM 数据的一个 tif 图片，使用 [geotiff](https://www.npmjs.com/package/geotiff) 加载后即可得到一个从左往右从上往下扫描的搞成数据组，然后建立一个同等大小的平面，将其三角网格数量设置为与 tif 长宽一致（各减去 1 ，是因为间隔数总比点数少一个），然后便利高程点数组去修改平面三元数组中的高程数据。如下代码示例：
 ```js
 const rawTiff = await GeoTIFF.fromUrl( './dem.tif' );
