@@ -99,10 +99,10 @@ div._main{
     padding: 2px 20px;
     background-color: #ddd;
 }
-._arc ._page a:nth-last-child(1){
+._arc ._page span:nth-last-child(1) a{
     border-radius:0 20px 20px 0 ;
 }
-._arc ._page a:nth-child(1){
+._arc ._page span:nth-child(1) a{
     border-radius:20px  0  0  20px;
 }
 ._content{
@@ -140,7 +140,7 @@ div._main{
 }
 ._content .arc_list li h3{
     font-size: 24px;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
     line-height: 1.4;
     font-weight: bold;
 }
@@ -154,15 +154,16 @@ div._main{
     color: #999;
 }
 ._content .arc_list li ._desc{
-    display: block;
+    display: none;
     margin-top: 10px;
 }
 ._content .arc_list li ._date {
     display: block;
 }
 ._content .arc_list li ._date a{
-    padding: 0px 5px;
-    background-color: #eee;
+    padding: 0px 8px;
+    color: #666;
+    background-color: rgba(238, 238, 238, 0.5);
     border-radius: 12px;
 }
 ._footer{
