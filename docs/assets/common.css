@@ -131,6 +131,7 @@ div._main{
 ._content .page_num a.cur_page{
     background-color: #000;
     color: #fff;
+    pointer-events: none;
 }
 
 ._content .arc_list li{
