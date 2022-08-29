@@ -6,7 +6,8 @@
 
 ## Ability
 * Master Object Oriented Programming, Javascript ES5/6/7 standard and data
-structure, algorithm.  Master Vuejs, jQuery. familiar with Reactjs and efficient ability to fast learning other
+structure, algorithm. 
+* Master Vuejs, jQuery. familiar with Reactjs and efficient ability to fast learning other
 Javascript Libs
 * Master css2/3, less, scss and Html new standard. familiar with webRTC
 * Master Threejs/Cesiumjs/OpenLayer to handle web GIS and webGL
