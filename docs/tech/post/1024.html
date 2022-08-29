@@ -109,7 +109,7 @@
 <h3 id="控制器">控制器</h3>
 <p>大部分控制器就是作用相机的 position 和 lookAt 实现交互的，但有的如 <code>DragControls</code> 不是。</p>
 <h3 id="几何体">几何体</h3>
-<p>Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状…，还有对几何形状的操纵，如挤压拉伸、打孔、贝塞尔形状合并等，可以使用这些基本的几何形状创造出各种形状。</p>
+<p>Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状、线条…，还有对几何形状的操纵，如挤压拉伸、打孔、贝塞尔形状合并、车削、阵列等，实际上就是对顶点的各种运算，可以使用这些基本的几何形状创造出各种形状。</p>
 <h3 id="外部模型">外部模型</h3>
 <p>Threejs 可以通过插件加载外部模型，并且转换为 Threejs Mesh 对象，通常包含多个 Mash。Threejs 支持比较好的是 fbx 和 glb 格式的模型，一般我们使用开源的 <a href="https://www.blender.org/">blender</a> 去建模和压缩，以减少其三角面数量，提升加载速度。</p>
 <h3 id="换肤">换肤</h3>
@@ -139,6 +139,18 @@
     <span class="hljs-keyword">if</span>(data[i] &gt; maxHeight) maxHeight = data[i]
     <span class="hljs-keyword">if</span>(data[i] &lt; minHeight) minHeight = data[i]
 }
+</code></pre>
+<p>等高线需要借助 <a href="https://observablehq.com/collection/@d3/d3-contour">d3-contour</a>（一个 d3js 的插件）去得到等高线的 path 带高程标识的数据集，然后在 threejs 中用 line 或者 line2 等绘制出来。</p>
+<p>同样的还可以通过 d3js 的一些插件运算器填挖方体积、剖面曲线等。</p>
+<h3 id="html-标签">html 标签</h3>
+<p>创建一个实际的 html 元素，然后给他设置为决定定位，通过 threejs 世界坐标系转屏幕坐标系计算出 html 元素的位置，然后在 controls 运动的回调中修改，具体转换代码如下所示：</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> vector =  point.<span class="hljs-title function_">clone</span>().<span class="hljs-title function_">project</span>(camera);
+<span class="hljs-keyword">let</span> halfWidth = el.<span class="hljs-property">offsetWidth</span> / <span class="hljs-number">2</span>,  <span class="hljs-comment">// el 是 threejs 容器元素</span>
+    halfHeight = el.<span class="hljs-property">offsetHeight</span> / <span class="hljs-number">2</span>;  
+<span class="hljs-keyword">return</span> {  
+    <span class="hljs-attr">x</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(vector.<span class="hljs-property">x</span> * halfWidth + halfWidth), 
+    <span class="hljs-attr">y</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(-vector.<span class="hljs-property">y</span> * halfHeight + halfHeight)
+}; 
 </code></pre>
 <h3 id="大量点绘制（雨点、雪花）">大量点绘制（雨点、雪花）</h3>
 <p>如果需要大量绘制不同大小、不同颜色、材质的点图形，则需要用到着色器，需要手动构建一个顶点存储的三元数组，然后构建一个存储颜色的三元数组（rgb）一起一个存储尺寸的数组，代码如下所示：</p>

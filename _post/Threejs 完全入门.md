@@ -72,7 +72,7 @@ let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHei
 大部分控制器就是作用相机的 position 和 lookAt 实现交互的，但有的如 `DragControls` 不是。
 
 ### 几何体
-Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状…，还有对几何形状的操纵，如挤压拉伸、打孔、贝塞尔形状合并等，可以使用这些基本的几何形状创造出各种形状。
+Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状、线条…，还有对几何形状的操纵，如挤压拉伸、打孔、贝塞尔形状合并、车削、阵列等，实际上就是对顶点的各种运算，可以使用这些基本的几何形状创造出各种形状。
 
 
 ### 外部模型
@@ -120,6 +120,23 @@ for (let i = 0; i < posAttr.count; i++) {
 
 ```
 
+等高线需要借助 [d3-contour](https://observablehq.com/collection/@d3/d3-contour)（一个 d3js 的插件）去得到等高线的 path 带高程标识的数据集，然后在 threejs 中用 line 或者 line2 等绘制出来。
+
+同样的还可以通过 d3js 的一些插件运算器填挖方体积、剖面曲线等。
+
+### html 标签
+
+创建一个实际的 html 元素，然后给他设置为决定定位，通过 threejs 世界坐标系转屏幕坐标系计算出 html 元素的位置，然后在 controls 运动的回调中修改，具体转换代码如下所示：
+
+```js
+let vector =  point.clone().project(camera);
+let halfWidth = el.offsetWidth / 2,  // el 是 threejs 容器元素
+    halfHeight = el.offsetHeight / 2;  
+return {  
+    x: Math.round(vector.x * halfWidth + halfWidth), 
+    y: Math.round(-vector.y * halfHeight + halfHeight)
+}; 
+```
 
 ### 大量点绘制（雨点、雪花）
 如果需要大量绘制不同大小、不同颜色、材质的点图形，则需要用到着色器，需要手动构建一个顶点存储的三元数组，然后构建一个存储颜色的三元数组（rgb）一起一个存储尺寸的数组，代码如下所示：
