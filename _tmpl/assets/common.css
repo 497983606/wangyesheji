@@ -255,6 +255,9 @@ div._main{
 ._markdown ul li {
     list-style: square;
 }
+._markdown ul li ul li {
+    list-style: circle;
+}
 ._markdown pre code{
     background-color: transparent;
     color: #fff;

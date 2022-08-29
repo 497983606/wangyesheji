@@ -7,14 +7,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content="老掉牙技术重拾 Watcher Sender 【状态机编程】 ">
-    <meta name="description" content="最近在研究状态编程的思想，不想歪打正着碰到了js实现dataMap，然后引申发现这个玩意可以做到类vue bus的效果，这里记录一下发布出来，希望对一些研究全局状态监控和数据双向绑定的同学有所帮助吧，下面具体在研究数据双向绑定的原理 ">
+    <meta name="keywords" content="NodeJs 爬取节假日数据 ">
+    <meta name="description" content="工作需要，就尝试做了个 Nodejs 爬取假日的东西，很简单 ">
 
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
     <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
-    <title>老掉牙技术重拾 Watcher Sender 【状态机编程】 -Wheat October</title>
+    <title>NodeJs 爬取节假日数据 -Wheat October</title>
 </head>
 <body>
     <div class="_main">
@@ -24,181 +24,116 @@
 </header>
         
         <main class="_content _arc">
-            <h1>老掉牙技术重拾 Watcher Sender 【状态机编程】 </h1>
+            <h1>NodeJs 爬取节假日数据 </h1>
             <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2022-02-15</span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
             <div class="_markdown">
-                <!-- 1451069040000 -->
-<!-- 老掉牙技术重拾 Watcher Sender 【状态机编程】 -->
-<!-- 最近在研究状态编程的思想，不想歪打正着碰到了js实现dataMap，然后引申发现这个玩意可以做到类vue bus的效果，这里记录一下发布出来，希望对一些研究全局状态监控和数据双向绑定的同学有所帮助吧，下面具体在研究数据双向绑定的原理 -->
+                <!-- 1578681840000 -->
+<!-- NodeJs 爬取节假日数据 -->
+<!-- 工作需要，就尝试做了个 Nodejs 爬取假日的东西，很简单 -->
 <!--  -->
 <!-- Tech -->
-<hr>
-<p>title: &#39;JS实现WATCHER,SENDER状态编程【老掉牙的技术重拾】&#39;<br>date: 2019-04-08 18:24:21<br>tags: javascipt</p>
-<hr>
-<h3 id="写在前面">写在前面</h3>
+
 <blockquote>
-<p>最近在研究状态编程的思想，不想歪打正着碰到了js实现dataMap，然后引申发现这个玩意可以做到类vue bus的效果，这里记录一下发布出来，希望对一些研究全局状态监控和数据双向绑定的同学有所帮助吧，下面具体在研究数据双向绑定的原理。</p>
+<p>爬取地址： <a href="https://fangjia.51240.com/2020__fangjia/">https://fangjia.51240.com/2020__fangjia/</a> </p>
 </blockquote>
-<h2 id="首先实现一个datamap">首先实现一个dataMap</h2>
-<p>分析一下，dataMap都需要什么功能，（之前有一篇文章咱们是说过es6新增对象map和set，mao和这个有点像，但map是一个二位数据 链接&gt;&gt;）下面列举一下：</p>
+<h3 id="爬取格式">爬取格式</h3>
+<p>2019年节日放假安排查询</p>
+<table>
+<thead>
+<tr>
+<th>节日</th>
+<th align="left">放假时间</th>
+<th align="left">调休上班日期</th>
+<th align="left">放假天数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>元旦</td>
+<td align="left">12月30日~1月1日</td>
+<td align="left">12月29日（周六）上班</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>春节</td>
+<td align="left">2月4日(除夕）~2月10日</td>
+<td align="left">2月2日（周六）、2月3日（周日）上班</td>
+<td align="left">7天</td>
+</tr>
+<tr>
+<td>清明节</td>
+<td align="left">4月5日~4月7日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>劳动节</td>
+<td align="left">5月1日~5月4日</td>
+<td align="left">4月28日（星期日）、5月5日（星期日）上班</td>
+<td align="left">4天</td>
+</tr>
+<tr>
+<td>端午节</td>
+<td align="left">6月7日~6月9日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+<tr>
+<td>国庆节</td>
+<td align="left">10月1日~10月7日</td>
+<td align="left">9月29日（周日）、10月12日（周六）上班</td>
+<td align="left">7天</td>
+</tr>
+<tr>
+<td>中秋节</td>
+<td align="left">9月13日~9月15日</td>
+<td align="left">与周末连休</td>
+<td align="left">3天</td>
+</tr>
+</tbody></table>
+<h3 id="使用">使用</h3>
+<p>安装：</p>
+<pre><code class="language-bash">npm install
+</code></pre>
+<p>启动：</p>
+<pre><code class="language-bash">node index.js
+</code></pre>
+<p>爬取： </p>
+<p>浏览器访问：<code>127.0.0.1/get/{year}</code></p>
+<p>爬取后，访问结果会持久化在 <code>/views/holidays/{year}.json</code>，可直接通过 <code>127.0.0.1/{year}.json</code> 访问</p>
+<p>返回结果：</p>
+<pre><code>{
+  year: {year},
+  holidays: {
+    01: {
+      01: 1,
+      02: 2
+    }
+    ……
+  }
+}
+</code></pre>
+<h3 id="代码说明">代码说明</h3>
+<h4 id="技术栈">技术栈</h4>
 <ul>
-<li>增、删、改、查，这个删要可以指定key去删除。</li>
-<li>既然自己搞那就搞点原生不具备的东西，方便使用提高性能。mapData具备判断是否为空、遍历（类原生高阶函数map方法）、获取键值数组、更加方便的获取mapData长度。<br>来看一下dataMap的结构图：<br><img src="https://i.loli.net/2019/01/03/5c2d5eda9b878.png" alt=""></li>
+<li>request</li>
+<li>express</li>
+<li>cheerio</li>
+<li>iconv</li>
 </ul>
-<p>来实现一下：</p>
-<pre><code class="language-js"><span class="hljs-comment">//先给原生数组加一个remove()方法</span>
-<span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">remove</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) {
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">length</span>; i++) {
-        <span class="hljs-keyword">if</span> (s == <span class="hljs-variable language_">this</span>[i])
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">splice</span>(i, <span class="hljs-number">1</span>);
-    }
-}
+<h4 id="爬取">爬取</h4>
+<pre><code class="language-js">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/get/:year&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> { year } = req.<span class="hljs-property">params</span>
+  <span class="hljs-comment">// 这是爬取地址，替换的话请保证格式和上面的一致</span>
+  request.<span class="hljs-title function_">get</span>(<span class="hljs-string">`https://fangjia.51240.com/<span class="hljs-subst">${year}</span>__fangjia/`</span>, <span class="hljs-function">(<span class="hljs-params">err, response, body</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(err) <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>({ err })
+    <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">json</span>( { 
+      year,
+      <span class="hljs-attr">holiday</span>: <span class="hljs-title function_">operation</span>(body, year) 
+    })
+  })
+})
 </code></pre>
-<p>具体实现以下dataMap这个构造函数</p>
-<pre><code class="language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">DataMap</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){
-    <span class="hljs-comment">/** 存放key */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>();
-    <span class="hljs-comment">/** 存放数据 */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>();
-    <span class="hljs-comment">/**
-     * 插入数据
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">String</span>} <span class="hljs-variable">key</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Object</span>} <span class="hljs-variable">value</span>
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">put</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">key, value</span>) {
-        <span class="hljs-keyword">if</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[key] == <span class="hljs-literal">null</span>){
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-title function_">push</span>(key);
-        }
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[key] = value;
-    };
-    <span class="hljs-comment">/**
-     * 获取某键对应的值
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">String</span>} <span class="hljs-variable">key</span>
-     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">Object</span>} <span class="hljs-variable">value</span>
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">get</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[key];
-    };
-    <span class="hljs-comment">/**
-     * 删除一个键值对
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">String</span>} <span class="hljs-variable">key</span>
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">remove</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-title function_">remove</span>(key);
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[key] = <span class="hljs-literal">null</span>;
-    };
-    <span class="hljs-comment">/**
-     * 遍历Map,执行处理函数
-     *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Function</span>} 回调函数 function(key,value,index){..}
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">each</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>){
-        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> fn != <span class="hljs-string">&#x27;function&#x27;</span>){
-            <span class="hljs-keyword">return</span>;
-        }
-        <span class="hljs-keyword">var</span> len = <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span>;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>;i&lt;len;i++){
-            <span class="hljs-keyword">var</span> k = <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>[i];
-            <span class="hljs-title function_">fn</span>(k,<span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[k],i);
-        }
-    };
-    <span class="hljs-comment">/**
-     * 获取键值数组(类似Java的entrySet())
-     * <span class="hljs-doctag">@return</span> 键值对象{key,value}的数组
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">entrys</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-keyword">var</span> len = <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span>;
-        <span class="hljs-keyword">var</span> entrys = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(len);
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) {
-            entrys[i] = {
-                key : <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>[i],
-                value : <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>[i]
-            };
-        }
-        <span class="hljs-keyword">return</span> entrys;
-    };
-    <span class="hljs-comment">/**
-     * 判断Map是否为空
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">isEmpty</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span> == <span class="hljs-number">0</span>;
-    };
-    <span class="hljs-comment">/**
-     * 获取键值对数量
-     */</span>
-    <span class="hljs-variable language_">this</span>.<span class="hljs-property">size</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span>;
-    };
-};
-</code></pre>
-<p>这个mapData完事，下来在说说用这个来做watcher和sender，同样的来看张流程图分析一下原理：<br><img src="https://i.loli.net/2019/01/03/5c2d6dec36359.png" alt=""></p>
-<p>上代码：</p>
-<pre><code class="language-js"><span class="hljs-keyword">var</span> eventController = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">var</span> instantiated;  <span class="hljs-comment">//实例化标识符</span>
-
-    <span class="hljs-keyword">function</span> <span class="hljs-title function_">init</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-comment">/*这里定义单例代码*/</span>
-        <span class="hljs-keyword">var</span> eventContainer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">DataMap</span>();
-
-        <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">registerEvent</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">event, operator</span>) {
-                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> operator != <span class="hljs-string">&quot;function&quot;</span>) {
-                    <span class="hljs-keyword">return</span>;
-                }
-
-                <span class="hljs-keyword">var</span> listenerList = eventContainer.<span class="hljs-title function_">get</span>(event);
-                <span class="hljs-keyword">if</span> (listenerList == <span class="hljs-literal">null</span>) {
-                    listenerList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>();
-                    eventContainer.<span class="hljs-title function_">put</span>(event, listenerList);
-                }
-
-                listenerList.<span class="hljs-title function_">push</span>(operator);
-            },
-
-            <span class="hljs-attr">wireEvent</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">event, param</span>) {
-                <span class="hljs-keyword">var</span> listenerList = eventContainer.<span class="hljs-title function_">get</span>(event);
-                <span class="hljs-keyword">if</span> (listenerList == <span class="hljs-literal">null</span>) {
-                    <span class="hljs-keyword">return</span>;
-                }
-
-                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; listenerList.<span class="hljs-property">length</span>; i++) {
-                    listenerList[i](param);
-                }
-            },
-
-            <span class="hljs-attr">publicProperty</span>: <span class="hljs-string">&#x27;test&#x27;</span>
-        };
-    }
-
-    <span class="hljs-keyword">return</span> {
-        <span class="hljs-comment">//避免重新生成DataMap实例</span>
-        <span class="hljs-attr">getInstance</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-keyword">if</span> (!instantiated) {
-                instantiated = <span class="hljs-title function_">init</span>();
-            }
-            <span class="hljs-keyword">return</span> instantiated;
-        }
-    };
-})();
-
-<span class="hljs-keyword">var</span> sender = <span class="hljs-keyword">function</span>(<span class="hljs-params">event, param</span>) {
-    eventController.<span class="hljs-title function_">getInstance</span>().<span class="hljs-title function_">wireEvent</span>(event, param);
-}
-
-<span class="hljs-keyword">var</span> watcher = <span class="hljs-keyword">function</span>(<span class="hljs-params">event, operator</span>) {
-    eventController.<span class="hljs-title function_">getInstance</span>().<span class="hljs-title function_">registerEvent</span>(event, operator);
-}
-</code></pre>
-<p>如果你很熟悉vuebus的使用那么这个也很好理解，请看使用方法：</p>
-<pre><code class="language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">event</span>(<span class="hljs-params">e</span>){
-    <span class="hljs-title function_">alert</span>(e)
-}
-<span class="hljs-title function_">watcher</span>(<span class="hljs-string">&#x27;everyString&#x27;</span>,event)
-<span class="hljs-comment">//在其他页面执行sender的时候event会执行</span>
-
-<span class="hljs-title function_">sender</span>(<span class="hljs-string">&#x27;everyString&#x27;</span>,<span class="hljs-string">&#x27;111&#x27;</span>)  <span class="hljs-comment">//alert(111)</span>
-</code></pre>
-<p>完事，有没有get到新技能。</p>
+<p>git：<a href="https://gitee.com/sk88/get_holiday">https://gitee.com/sk88/get_holiday</a></p>
 
             </div>
             <p class="_page"><span><a class="_pre_arc" href= "/tech/post/1025.html">Pre</a></span> <span><a class="_next_arc" href="/tech/post/1027.html"> Next </a></span></p>
