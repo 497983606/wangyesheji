@@ -221,6 +221,7 @@ div._main{
     font-family: 'Courier New', Courier, monospace, Cambria, 'STSong', 'Source Han Serif SC', 'STZhangsong','Song SC','SimSun','Linux Libertine','Georgia','Times',serif, '宋体' !important ;
     background-color: #eee;
     padding: 0px 5px;
+    word-break: break-all;
 }
 ._markdown a{
     color: rgb(5, 61, 125);
