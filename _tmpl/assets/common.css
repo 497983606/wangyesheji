@@ -300,4 +300,7 @@ div._main{
     ._footer .__right .___nav{
         display: inline;
     }
+    ._arc>h1, ._arc ._info{
+        text-align: left;
+    }
 }
