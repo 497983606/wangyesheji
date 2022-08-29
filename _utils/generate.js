@@ -125,7 +125,7 @@ module.exports = ( tmpls, markdowns ) => {
     let arcs = mds.filter(m => m.type.replace(/\s*/g, '') == navItme.title.replace(/\s*/g, '')).sort((x, y) => y.time - x.time)
     arcList[key] = []
     arcs.forEach((i, idx) => {
-      let arcRegs = ['arcPreReg', 'arcNextReg', 'arcBodyReg', 'titleReg', 'dateReg', 'thumbReg', 'descReg']
+      let arcRegs = ['arcPreReg', 'arcNextReg', 'arcTypeReg', 'arcBodyReg', 'titleReg', 'dateReg', 'thumbReg', 'descReg']
       let arc = navItme.type == 'list' ? allFullFile['arc.htm'] : allFullFile['page.htm']
       arcRegs.forEach(ar => {
         let _cont = ""
@@ -134,6 +134,7 @@ module.exports = ( tmpls, markdowns ) => {
         else if(ar == 'dateReg') _cont = dateFormat(webSite.dateFmt, new Date(i.time))
         else if(ar == 'thumbReg') _cont = i.img
         else if(ar == 'descReg') _cont = i.describe
+        else if(ar == 'arcTypeReg') _cont = `<a href='/${key}'>${i.type}</a>`
         else if(ar == 'arcPreReg' && idx !== 0  && navItme.type == 'list' ) _cont = `<a class="_pre_arc" href= "/${key}/post/${( Number(idx - 1) + webSite.postStart ) }.html">${ webSite.lang.pre }</a>`
         else if(ar == 'arcNextReg' && idx+1 !== arcs.length && navItme.type == 'list') _cont = `<a class="_next_arc" href="/${key}/post/${( Number(idx + 1) + webSite.postStart ) }.html"> ${ webSite.lang.next } </a>`
         arc = arc.replace(new RegExp(Regs[ar]), _cont)
@@ -187,7 +188,7 @@ module.exports = ( tmpls, markdowns ) => {
             ${ i.img ? '<img src='+ i.img +'/>' : ''} 
             <span class="_date"><i class="iconfont icon-riqi"></i>  ${ dateFormat(webSite.dateFmt, new Date(i.time)) }</span>
             <span class="_desc">
-              ${ i.describe }
+              ${ i.describe }...
             </span>
           </p>
         </li>`
@@ -252,7 +253,7 @@ module.exports = ( tmpls, markdowns ) => {
             <a class="_type" href="${baseUrl}/${item.type}">${ webSite.nav[item.type].title }</a>
           </span>
           <span class="_desc">
-              ${ item.describe }
+              ${ item.describe }...
           </span>
         </p>
         </li>

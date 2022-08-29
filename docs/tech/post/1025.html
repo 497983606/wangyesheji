@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="vue electron-serialport 解决方案 ">
+    <meta name="description" content="工作中有使用到 electron 与硬件进行串口通信，所以调研了一下，好多次了，各个版本变化还是比较大的，这里记录一下一种可行的操作 ">
+
+    <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/common.css">
+    <link rel="stylesheet" href="../../assets/iconfont.css">
+    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <title>vue electron-serialport 解决方案 -Wheat October</title>
+</head>
+<body>
+    <div class="_main">
+        <header class="_header">
+    <span class="_logo"> <a title="Back Home" href="/"></a> </span>
+    <span class="_nav"><a href="/tech/"> Tech </a><a href="/think/"> Think </a><a href="/about/"> About </a> <a href="/rss.html"><i  class="iconfont icon-dingyue"></i> Rss</a></span>
+</header>
+        
+        <main class="_content _arc">
+            <h1>vue electron-serialport 解决方案 </h1>
+            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2022-02-15</span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
+            <div class="_markdown">
+                <!-- 1661735368384 -->
+<!-- vue electron-serialport 解决方案 -->
+<!-- 工作中有使用到 electron 与硬件进行串口通信，所以调研了一下，好多次了，各个版本变化还是比较大的，这里记录一下一种可行的操作 -->
+<!--  -->
+<!-- Tech -->
+<h1 id="安装-electron">安装 electron</h1>
+<p>正常使用 cli 安装 vue，然后使用</p>
+<pre><code class="language-bash">vue add electron-builder
+</code></pre>
+<p>命令为 cli 安装插件，这个时候这个插件就会在目录下创建一堆文件并且改变文件夹</p>
+<p>然后在项目根目录下创建 <code>.npmrc</code>文件，在里面粘贴，原因可参见这篇文章：<code>https://segmentfault.com/q/1010000007594059</code></p>
+<pre><code class="language-bash">registry=https://registry.npm.taobao.org
+sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
+electron_mirror=http://npm.taobao.org/mirrors/electron/
+</code></pre>
+<p>然后 install 推荐使用 yarn</p>
+<h1 id="serialport-支持">serialport 支持</h1>
+<p>如果项目中有用到 serialport （各版本差异比较大，注意api），在<code>vue.config.js</code> 里面增加</p>
+<pre><code class="language-js">...
+<span class="hljs-attr">pluginOptions</span>: {
+  <span class="hljs-attr">electronBuilder</span>: {
+    <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
+...
+</code></pre>
+<p>PS：一个比较完整的打包配置</p>
+<pre><code class="language-js"><span class="hljs-attr">electronBuilder</span>: {
+  <span class="hljs-comment">// List native deps here if they don&#x27;t work</span>
+  <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
+  <span class="hljs-attr">nodeModulesPath</span>: [<span class="hljs-string">&#x27;../../node_modules&#x27;</span>, <span class="hljs-string">&#x27;./node_modules&#x27;</span>],
+  <span class="hljs-attr">builderOptions</span>: {
+        <span class="hljs-attr">appId</span>: <span class="hljs-string">&quot;com.oceanx.app&quot;</span>,
+        <span class="hljs-attr">productName</span>: <span class="hljs-string">&quot;LagrangeSingle&quot;</span>, <span class="hljs-comment">//项目名，也是生成的安装文件名</span>
+        <span class="hljs-attr">copyright</span>: <span class="hljs-string">&quot;------&quot;</span>, <span class="hljs-comment">//版权信息</span>
+        <span class="hljs-attr">directories</span>: {
+                <span class="hljs-attr">output</span>: <span class="hljs-string">&quot;./dist_electron&quot;</span>, <span class="hljs-comment">//输出文件路径</span>
+        },
+        <span class="hljs-comment">// 不被打包的文件夹（根目录下，引用时使用 path.join(!isDevelopment ? __dirname : __static , &#x27;../文件夹名称&#x27;）</span>
+        <span class="hljs-attr">extraResources</span>: [<span class="hljs-string">&#x27;./live_video&#x27;</span>, <span class="hljs-string">&#x27;./sensor_file&#x27;</span>],
+        <span class="hljs-attr">nsis</span>: {
+                <span class="hljs-string">&quot;oneClick&quot;</span>: <span class="hljs-literal">false</span>,
+                <span class="hljs-string">&quot;allowToChangeInstallationDirectory&quot;</span>: <span class="hljs-literal">true</span>
+        },
+        <span class="hljs-attr">win</span>: {
+                <span class="hljs-comment">//win相关配置</span>
+                <span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;./icons/icon.ico&quot;</span>, <span class="hljs-comment">//图标，当前图标在根目录下，注意这里有两个坑</span>
+                <span class="hljs-attr">target</span>: [
+                        {
+                                <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;nsis&quot;</span>, <span class="hljs-comment">//利用nsis制作安装程序</span>
+                                <span class="hljs-attr">arch</span>: [
+                                        <span class="hljs-string">&quot;x64&quot;</span>, <span class="hljs-comment">//64位</span>
+                                ],
+                        },
+                ],
+        },
+    },
+},
+</code></pre>
+
+            </div>
+            <p class="_page"><span><a class="_pre_arc" href= "/tech/post/1024.html">Pre</a></span> <span><a class="_next_arc" href="/tech/post/1026.html"> Next </a></span></p>
+        </main>
+        <footer class="_footer">
+    <span class="__left">POWER BY <a href="/about">EASYBLOG</a></span>
+    <span class="__right">
+        <span class="___nav"><a href="/tech/"> Tech </a><a href="/think/"> Think </a><a href="/about/"> About </a></span>
+        <a class="iconfont icon-tuite1" target="_blank" href="https://twitter.com/full_designer_"></a>
+        <a class="iconfont icon-weixin" href=""></a>
+    </span>
+</footer>
+    </div>
+</body>
+</html>

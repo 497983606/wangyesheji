@@ -31,7 +31,7 @@ node index.js
 
 浏览器访问：`127.0.0.1/get/{year}`
 
-爬取后，访问结果会持久化在 '/views/holidays/{year}.json'，可直接通过 `127.0.0.1/{year}.json` 访问
+爬取后，访问结果会持久化在 `/views/holidays/{year}.json`，可直接通过 `127.0.0.1/{year}.json` 访问
 
 返回结果：
 ```

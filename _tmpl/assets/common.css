@@ -67,7 +67,7 @@ div._main{
     width: 433px;
     cursor: pointer;
 }
-._arc h1{
+._arc>h1{
     text-align: center;
     line-height: 1.4;
     font-size: 30px;
@@ -151,13 +151,17 @@ div._main{
     display: none;
 }
 ._content .arc_list li ._desc, ._content .arc_list li ._date{
-    color: #666;
+    color: #999;
+}
+._content .arc_list li ._desc{
+    display: block;
+    margin-top: 10px;
 }
 ._content .arc_list li ._date {
     display: block;
 }
 ._content .arc_list li ._date a{
-    padding: 2px 5px;
+    padding: 0px 5px;
     background-color: #eee;
     border-radius: 12px;
 }
@@ -179,13 +183,14 @@ div._main{
     display: none;
 }
 ._content .arc_rss li{
-    padding: 5px 0;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
 }
 ._content .arc_rss span{
     color: #999;
 }
 ._content .arc_rss ._type{
-    padding: 2px 5px;
+    padding: 0px 5px;
     background-color: #eee;
     border-radius: 12px;
 }
@@ -204,17 +209,16 @@ div._main{
     overflow-x: auto;
 }
 ._markdown pre{
-    line-height: 1.5;
-    background-color: #333;
+    line-height: 1.3;
+    background-color: rgb(0, 0, 0);
     overflow: hidden;
     overflow-x: auto;
     padding: 10px;
 }
 ._markdown code{
-    font-family: Cambria, 'STSong', 'Source Han Serif SC', 'STZhangsong','Song SC','SimSun','Linux Libertine','Georgia','Times',serif, '宋体' !important ;
+    font-family: 'Courier New', Courier, monospace, Cambria, 'STSong', 'Source Han Serif SC', 'STZhangsong','Song SC','SimSun','Linux Libertine','Georgia','Times',serif, '宋体' !important ;
     background-color: #eee;
-    padding: 2px 5px;
-    font-size: 18px;
+    padding: 0px 5px;
 }
 ._markdown a{
     color: rgb(5, 61, 125);
@@ -252,6 +256,8 @@ div._main{
 }
 ._markdown pre code{
     background-color: transparent;
+    color: #fff;
+    padding: 0;
 }
 ._markdown h1,._markdown h2,._markdown h3,._markdown h4,._markdown h5,._markdown h6{
     padding: 10px 0;

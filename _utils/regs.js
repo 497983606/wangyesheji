@@ -9,6 +9,7 @@ module.exports = {
   arcPreReg: /\{\$arcPre:end\/\}/g,
   pageNumReg: /\{\$pageNum:end\/\}/g,
   arcBodyReg: /\{\$arcBody:end\/\}/g,
+  arcTypeReg: /\{\$arcType:end\/\}/g,
   listReg: /\{\$list:end\/\}/g,
   curPage: /\{\$curPage:end\/\}/g,
   newsReg: /\{\$news:end\/\}/g,
