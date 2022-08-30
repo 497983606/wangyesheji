@@ -19,7 +19,7 @@ Threejs 是对 webGL 的封装，使其变得更加符合面向对象编程的�
 * [Object3d](https://threejs.org/docs/index.html#api/zh/core/Object3D)： 所有空间对象都是 threejs 的 Object3d 对象，继承了该构造函数（基类）的属性和方法 
 * [渲染器 renderer](https://threejs.org/docs/#api/zh/renderers/WebGLRenderer)：它是Three.js的主要对象，场景(Scene)和摄像机(Camera)都需要传入渲染器(Renderer)中，通过它将摄像机视椎体中的三维场景渲染成一个二维图片显示在画布上
 * [场景 Scene](https://threejs.org/docs/index.html#api/zh/scenes/Scene)：它就相当于一个大容器，我们需要展示的所有物体都要放入场景。在场景中子对象的位置和方向总是相对于父对象而言的，比如我移动了父对象的位置，子对象也会一起移动。
-* [摄像机 camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)：它与其他对象不同的是，它不一定要在场景图中才能起作用，它可以和场景同级。相同的是，摄像机(Camera)作为其他对象的子对象，同样会继承它父对象的位置和朝向。  
+* [摄像机 camera](https://threejs.org/docs/index.html#api/zh/cameras/Camera)：它与其他对象不同的是，它不一定要在场景中才能起作用，它可以和场景同级。相同的是，摄像机(Camera)作为其他对象的子对象，同样会继承它父对象的位置和朝向。  
     Three.js内置几种摄像机：
     * `PerspectiveCamera` 透视相机，这一投影模式被用来模拟人眼所看到的景象，它是3D场景的渲染中使用得最普遍的投影模式。
     * `CubeCamera` 立方相机，这一投影模式显示的景象是在一个立方范围内的。
@@ -72,7 +72,7 @@ let camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHei
 大部分控制器就是作用相机的 position 和 lookAt 实现交互的，但有的如 `DragControls` 不是。
 
 ### 几何体
-Threejs 自带了很多集合图，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状、线条…，还有对几何形状的操纵，如挤压拉伸、打孔、贝塞尔形状合并、车削、阵列等，实际上就是对顶点的各种运算，可以使用这些基本的几何形状创造出各种形状。
+Threejs 自带了很多几何形状，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状、线条…，还有对几何形状的操纵，如挤压拉伸、打孔、合并、交集、减去、车削、阵列等，实际上就是对顶点的各种运算，可以使用这些基本的几何形状创造出各种形状。
 
 
 ### 外部模型
