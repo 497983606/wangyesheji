@@ -7,14 +7,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content="在流程设计器的开发中感觉：钉钉的流程设计器是否有问题？ ">
-    <meta name="description" content="2018 年在做设计和开发流程设计器过程中去参考了钉钉的流程设计器，但是在后来的逻辑中发现它好像有 Bug ，现在应该是改好了 ">
+    <meta name="keywords" content="为什么现代人很辛苦却不幸福 ">
+    <meta name="description" content="为什么现代人很辛苦却不幸福 的前言 ">
 
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
     <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
-    <title>在流程设计器的开发中感觉：钉钉的流程设计器是否有问题？ -Wheat October</title>
+    <title>为什么现代人很辛苦却不幸福 -Wheat October</title>
 </head>
 <body>
     <div class="_main">
@@ -24,222 +24,36 @@
 </header>
         
         <main class="_content _arc">
-            <h1>在流程设计器的开发中感觉：钉钉的流程设计器是否有问题？ </h1>
-            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2019-07-13 </span> <span class="type"> <a href='/think'>Think </a> </span></p>
+            <h1>为什么现代人很辛苦却不幸福 </h1>
+            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2020-10-09 </span> <span class="type"> <a href='/think'>Think </a> </span></p>
             <div class="_markdown">
-                <!-- 1562957040000 -->
-<!-- 在流程设计器的开发中感觉：钉钉的流程设计器是否有问题？ -->
-<!-- 2018 年在做设计和开发流程设计器过程中去参考了钉钉的流程设计器，但是在后来的逻辑中发现它好像有 Bug ，现在应该是改好了 -->
+                <!-- 1602219240000 -->
+<!-- 为什么现代人很辛苦却不幸福 -->
+<!-- 为什么现代人很辛苦却不幸福 的前言 -->
 <!--  -->
 <!-- Think -->
 
 <blockquote>
-<p>2018 年在做设计和开发流程设计器过程中去参考了钉钉的流程设计器，但是在后来的逻辑中发现它好像有 Bug ，现在应该是改好了</p>
+<p>很多科技并不能给人提升生活质量，而是增加生活成本，人的最根本需求就只是吃喝玩乐，本质上就是一切为了愉悦感，而现代化的生活让愉悦感获得的代价越来越高，比如他有车，你没车，你必须努力得到一辆，因为这可能影响你的基因延续，但车的好坏快慢甚至有无并没有那么重要，本质上是不断挑起社会欲望，使之成为一种文化</p>
 </blockquote>
-<h2 id="设计调研">设计调研</h2>
-<p>最近在做系统中的流程管理功能，对比了各大流程设计器，很多都要结合脚本进行实现。作为一名追求完美用户体验的全栈设计师，这种方式一定要不得。其实对于我们系统来说也不必要那么复杂的操作体验。寻觅一番，发现钉钉的请假流程体验很好。</p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f03440414~tplv-t2oaga2asx-image.image" style="width:60%"/></p>
-
-<p>界面简单明确，适合固定流程类型的系统。于是开始对其进行解剖，看看他是如何去管控流程的，并联系我这边的系统进行移植和优化。</p>
-<h1 id="功能设计分析">功能设计分析</h1>
-<p>钉钉这个流程设计器将审批流程的节点分为三类：</p>
-<ul>
-<li>审批节点</li>
-<li>条件分支</li>
-<li>抄送</li>
-</ul>
-<p>其中“<strong>审批节点</strong>”的审批类型分为：指定成员、主管、角色、发起人自选、发起人自己、表单里的联系人、连续多级主管、……，和这些类型的更细分的属性操作。</p>
-<p>然后“<strong>条件分支</strong>”是对“请假”（这个只有请假流程设计）内一些指定字段的大于、等于、小于、大于等于……的判断然后根据判断结果输出多个分支，后面再跟上审批节点。</p>
-<p>“<strong>抄送</strong>”这里其实可以融合到任何一个节点里面去，但钉钉团队选择分出来也是很好的选择，操作人员理解起来比较直观。我的系统不是基于IM基础的所以抄送功能就变得不太重要了，但确确实我在做做用户调研时拿出钉钉的抄送功能让用户对比，很多用户反馈这个功能很好（他们可能没用过邮件）。</p>
-<p>钉钉的流程设计器还做了容错判断，比如发布流程时需要判断各节点内容是否完整、合法。问题就出在这里，我们后文会讲到。</p>
-<h2 id="ui实现">UI实现</h2>
-<p>钉钉这个流程设计器采用的是DIV+CSS方式实现，可以说这位老兄的css功底很了得。听说阿里的技术选型是React，所以这里应该是一个组件递归，数据结构也就是类似树结构，像下面这样：</p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f04365888~tplv-t2oaga2asx-image.image" style="width:60%"/></p>
-把这个树结构转成流程形状有很多种办法。
-
-<p>但是要编辑这个就和传统的树结构编辑有点区别了。比如当用户在两个节点之间增加了一个节点，那么下面的节点的父级就变成了这个新增的节点，上面的下级也变成了这个新增的节点。</p>
-<p>也有一种办法，就是服务端返回的就是一个展开的树数据，像这样：</p>
-<pre><code class="language-json">{
-    &quot;1&quot;:{
-        &quot;name&quot;:&quot;XXXX&quot;
-        &quot;pid&quot;:&quot;2&quot;,
-        &quot;type&quot;:&quot;approver&quot;
-        ……
-    },
-    &quot;2&quot;:{
-        &quot;name&quot;:&quot;XXXX&quot;
-        &quot;pid&quot;:&quot;1&quot;,
-        &quot;type&quot;:&quot;approver&quot;
-        ……
-    }
-    ……
-}
-</code></pre>
-<p>然后就可以写一个操作的构造函数（不考虑DOM生成），大致结构和设计思路可以看看下面的：</p>
-<pre><code class="language-js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">TreeOperate</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-variable language_">arguments</span></span>){<span class="hljs-variable constant_">TODO</span>}
-    <span class="hljs-comment">/*
-     * id生成，根据时间戳做一些处理生成唯一id
-     */</span>
-    <span class="hljs-title function_">generateId</span>(<span class="hljs-params"></span>){}
-    <span class="hljs-comment">/*
-     * 将原始数据组合成树结构，每次对节点操作都要执行一次重组，也就是说操作的是上面的展开的树数据，而不是组装的树数据。
-     */</span>
-    <span class="hljs-title function_">compose</span>(<span class="hljs-params"></span>){}
-    <span class="hljs-comment">/*
-     * 校验流程的合法性
-     */</span>
-    <span class="hljs-title function_">werification</span>(<span class="hljs-params"></span>){}
-    <span class="hljs-comment">/*
-     * 插入节点，有三种节点类型（分支、审批、抄送）
-     * 还需要判断插入节点是否存在子节点，如果存在则将子节点pid改为当前节点id
-     */</span>
-    <span class="hljs-title function_">addNodes</span>(<span class="hljs-params"></span>){}
-    <span class="hljs-comment">/*
-     * 移除节点，同样判断移除节点是否有子节点，有的话先将自己移除，在使用addNodes()将自己的子节点放到自己的父节点内
-     */</span>
-    <span class="hljs-title function_">removeNodes</span>(<span class="hljs-params"></span>){}
-    <span class="hljs-comment">/*
-     * 修改节点，钉钉的流程设计器不支持拖动改变父节点和节点内容修改，那么修改节点也仅仅是节点的内容进行修改
-     */</span>
-    <span class="hljs-title function_">editNodes</span>(<span class="hljs-params"></span>){}
-}
-</code></pre>
-<h2 id="缺点">缺点</h2>
-<p>像钉钉这样在编辑完成后再提交整体数据结构，那么各节点ID生成的重担就放到了前端开发人员的肩上，而且这样提交后的数据，后端必须清空现有流程节点再重新解析新数据填入表中，费事费力（如果不清空就要去重删除，那样更麻烦），这样也不太安全的。</p>
-<p>我就在想钉钉这样做是为啥呢？？实在没有道理，虽然钉钉细节上的东西很多，但不至于要这样做，难道仅仅是为了全盘校验？！如果是这样，那下面这样的流程通过合法性校验就有点匪夷所思了，请看下图：</p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a026c8fb2070~tplv-t2oaga2asx-image.image" style="width:60%"/></p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f05a2624c~tplv-t2oaga2asx-image.image" style="width:60%"/></p>
-
-<p>这样一个明显不合法的流程被认定为合法。试想没有审批，条件分支以后直接结束流程，这？ @钉钉前端工程师</p>
-<h1 id="本土化改进版">本土化改进版</h1>
-<h2 id="设计思路">设计思路</h2>
-<p>发现了这些缺点后，我这边的系统采用的是vue进行前端编写，看下实现效果：</p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a026c8e71f09~tplv-t2oaga2asx-image.image" style="width:80%"/></p>
-
-<p>因为没有抄送，所以就只有两种节点类型：“审批节点”、“条件分支”。<br>看看审批节点的选项，理解一下我是怎样的思路：</p>
-<p style="text-align:center"><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f0860a23c~tplv-t2oaga2asx-image.image" style="width:60%"/></p>
-因为在权限那里对发起人做了限制，所以就不需要钉钉那样的在流程内限制发起人，所以如图所示，选择审批人为上级部门主管，就只需要给节点取个名字就可以了。服务端会根据树去一级一级找（有一个流程进度表，专门记录流程进展），相关审批人就会收到审批请求，操作后服务端再设置相关状态值，前端根据状态值去判断显示。为了安全起见服务端还会做状态检验和URL拦截。
-
-<h3 id="重点来了">重点来了</h3>
-<p>这里点击保存按钮就会直接提交节点内容到服务端，服务端会自动重新组装返回数据结构给我，那我只需要再渲染一次就OK了！<br>删除也一样，我只把当前节点ID传给后端就可以了，然后后端返回删除后的流程节点数据给我，再重新渲染就是了。用一张图来对比一下这两种方法：<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f33e33e20~tplv-t2oaga2asx-image.image" alt="图层 4sss.png"></p>
-<h3 id="问题">问题</h3>
-<p>这种逐个操作法，总大的问题就是不能验证整体流程的合法性，很可能用户因此提交一个错误的流程，导致业务进程受阻，但通过对比正反向用例，发现担心是多余的，因为只有一种上面提到的“条件节点后不能没有审批”的这种合法性校验，这种逐个校验逐个提交的方式可以handle所有用例（这种合法性校验顶顶虽然使用了全局提交，但也没有做）。</p>
-<p>终归问题还是要解决的，万一用户弄了这么一个流程怎么办？很简单，新流程提交的时候如果流程不合法就为用户返回“流程设计出现问题，请联系流程设计相关人员修改！”并阻断流程提交。</p>
-<h2 id="实现">实现</h2>
-<p>看看文件结构</p>
-<pre><code class="language-js">|-workFlow.vue
-|-node.vue
-</code></pre>
-<p>利用组件递归方法，进行流程树渲染。下面重点看看node.vue的代码：</p>
-<pre><code class="language-html">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;work-flow-item&quot;</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- 判断流程是否是分支，是的话循环分支内部节点 --&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.type == &#x27;branch&#x27;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;work-flow-conditionNodes c-flex c-flex-center&quot;</span>&gt;</span>
-        ……
-            <span class="hljs-tag">&lt;<span class="hljs-name">Item</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in data.conditionNodes&quot;</span> <span class="hljs-attr">:type</span>=<span class="hljs-string">&quot;type&quot;</span> <span class="hljs-attr">:config</span>=<span class="hljs-string">&quot;config&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;item&quot;</span>/&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- item 主体开始 --&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;c-flex c-flex-center card-warp&quot;</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.type != &#x27;end&#x27; &amp;&amp; data.type != &#x27;branch&#x27;&quot;</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">el-card</span> <span class="hljs-attr">:class</span>=<span class="hljs-string">&quot;data.type&quot;</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span>{{data.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-                <span class="hljs-comment">&lt;!-- 判断流程是否为条件，是的话按照条件渲染 --&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.type == &#x27;condition&#x27;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sys-flow-content&quot;</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.params &amp;&amp; config[type]&quot;</span>&gt;</span>{{config[type].long}}：<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;!data.params&quot;</span>&gt;</span>其他条件进入此流程<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(val,key) in data.condition&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;key&quot;</span>&gt;</span>
-                         {{equation[key]}}{{val}}  
-                    <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.type == &#x27;approver&#x27;&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sys-flow-content&quot;</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-name">font</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;approver[data.approver.type]&quot;</span>&gt;</span>审批人：<span class="hljs-tag">&lt;/<span class="hljs-name">font</span>&gt;</span>
-                    {{approver[data.approver.type]}} 
-                    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.approver.name&quot;</span>&gt;</span>{{data.approver.name}}<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-                <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-name">el-card</span>&gt;</span>
-            ……
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-comment">&lt;!-- item 主体结束 --&gt;</span>
-        <span class="hljs-comment">&lt;!-- 判断流程是否存在nextNode，如果有则去递归，没有就结束 --&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Item</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data.nextNode&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;data.nextNode&quot;</span> <span class="hljs-attr">:type</span>=<span class="hljs-string">&quot;type&quot;</span> <span class="hljs-attr">:config</span>=<span class="hljs-string">&quot;config&quot;</span>/&gt;</span>        
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
-</code></pre>
-<h3 id="重点的样式">重点的样式</h3>
-<p>盒模型如下所示：<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/7/16c6a01f376d0b0b~tplv-t2oaga2asx-image.image" alt="图层 4sss.png"></p>
-<p>连线采用<code>before</code>和<code>after</code>伪类，优点是控制灵活。</p>
-<p>看下面一段代码：</p>
-<pre><code class="language-css"><span class="hljs-selector-class">.work-flow-item</span>{
-    <span class="hljs-selector-class">.el-card</span>{
-        <span class="hljs-attribute">overflow</span>: visible;
-        <span class="hljs-attribute">position</span>: relative;
-        &amp;<span class="hljs-selector-pseudo">::after</span>{
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">width</span>: <span class="hljs-number">2px</span>;
-            <span class="hljs-attribute">height</span>: @height;
-            <span class="hljs-attribute">background-color</span>: @color;
-            <span class="hljs-attribute">bottom</span>: -@height;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">99px</span>;
-        }
-        &amp;<span class="hljs-selector-pseudo">::before</span>{
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">width</span>: <span class="hljs-number">2px</span>;
-            <span class="hljs-attribute">height</span>: @height;
-            <span class="hljs-attribute">background-color</span>: @color;
-            <span class="hljs-attribute">top</span>: -@height;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">99px</span>;
-        }
-    }
-    <span class="hljs-selector-class">.work-flow-conditionNodes</span>{
-        <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#f5f6f8</span>;
-        &amp;<span class="hljs-selector-pseudo">::after</span>{
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(~<span class="hljs-string">&quot;100% - 200px&quot;</span>);
-            <span class="hljs-attribute">height</span>: <span class="hljs-number">2px</span>;
-            <span class="hljs-attribute">background-color</span>: @color;
-            <span class="hljs-attribute">bottom</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">left</span>:<span class="hljs-number">99px</span>;
-        }
-        &amp;&gt;<span class="hljs-selector-class">.work-flow-item</span>{
-            <span class="hljs-attribute">position</span>: relative;
-            &amp;<span class="hljs-selector-pseudo">::before</span>{
-                <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-                <span class="hljs-attribute">position</span>: absolute;
-                <span class="hljs-attribute">width</span>: <span class="hljs-number">2px</span>;
-                <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
-                <span class="hljs-attribute">background-color</span>: @color;
-                <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-                <span class="hljs-attribute">left</span>:<span class="hljs-built_in">calc</span>(~<span class="hljs-string">&quot;50% - 1px&quot;</span>);
-            }
-        }
-        &amp;<span class="hljs-selector-pseudo">::before</span>{
-            <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;&quot;</span>;
-            <span class="hljs-attribute">position</span>: absolute;
-            <span class="hljs-attribute">width</span>: <span class="hljs-built_in">calc</span>(~<span class="hljs-string">&#x27;100% - 200px&#x27;</span>);
-            <span class="hljs-attribute">height</span>: <span class="hljs-number">2px</span>;
-            <span class="hljs-attribute">background-color</span>: @color;
-            <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
-            <span class="hljs-attribute">left</span>: <span class="hljs-number">99px</span>;
-        }
-    }
-}
-</code></pre>
-<h3 id="数据库相关">数据库相关</h3>
-<p>大致上把节点分为5类：</p>
-<ul>
-<li>开始节点</li>
-<li>审批节点</li>
-<li>分支节点</li>
-<li>条件节点</li>
-<li>结束节点<br>其中“开始节点”和“结束节点”是唯一的，条件节点必须包含在分支节点内。详细说说明如下图所示：<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/11/16c7f662d517aede~tplv-t2oaga2asx-image.image" alt="图层-4.png"></li>
-</ul>
-<center>（图片过大可以右键新标签打开）</center>
-
-<p>我们系统中有多种内容需要流程审批，所以要记录多个流程。当发起某种内容需要审批时就会启动当前流程，并进入start节点，然后把所有节点复制一份存放到状态表的字段内方便下次调用。具体流程如图所示：<br><img src="https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/gold-user-assets/2019/8/11/16c7f662d146a88e~tplv-t2oaga2asx-image.image" alt="图层-4.png"></p>
-<p>End</p>
+<p>自从400万年前人类出现在地球上，就开始为了生计奔波。像所有动物一样，人从生下来就被大自然赋予了第一个欲望——活着。</p>
+<p>由于这个物种的食物结构导致了他们需要采摘和狩猎，然后学会了团体合作。慢慢的人们在酒足饭饱之后思考如何更加轻松的获取食物，于是就有了农业和牧业。</p>
+<p>但不知何时何因起，人类开始互相掠夺和杀戮，为了防止被掠夺、被杀戮……一部分人团结起来形成部落，至此起人类的世界，最大的敌人变成人类自己。</p>
+<p>在这之后人类的团体变得越来越复杂，来自一切生物的本能对成本的敏感，团体和团体之间也有非常密切的交流，团体成员之间也被约束了行为，使更加符合团体大多数人的利益。</p>
+<p>试想一下，回到原始农耕社会，没有组织和团体，大家各凭能力去放牧、种植。按照现在的方式满足一家老小的口粮可能仅仅需要非常少的劳动力，一年中我们可能只劳动一两个月，有大把时间去放松和休闲，并且有足够的食物去应对风险。</p>
+<p>但现实总是不如人意，有一群人开始掠夺、杀戮，所以需要多个小个体（家庭/家族）团结起来应对外部入侵，慢慢的需要团结的家庭变得越来越多，就需要有一些人来管理，而这些管理的人因为放弃了为自己而为团体劳动，大家便需要为这部分人提供生产资料。</p>
+<p>再后来战争因为成本增大的原因，变得越来越少，而团体变得很大，矛盾开始出现在团体内部，也同样有来自内部的掠夺（偷盗、霸占……）和杀戮。</p>
+<p>这就变得很有意思，人类社会的最不稳定因素来自掠夺和杀戮，一开始是外部、后来变成了内部，因为团体越来越大。</p>
+<p>而这些不稳定因素导致了社会秩序维护成本越来越大，需要的团体管理层越来越庞大，消耗的社会生产力越来越多，导致了上面的假设变得不可能，甚至普通人一年到头都在劳作，有时也不足以生存。</p>
+<p>这时候人们发现加入管理团体的组织将可能不再如此辛苦劳作而得以生存，而团体管理层为了架设在自己利益网络上的人越来越多，启用了更多的人，为了避免团体内部产生矛盾。在选拔时，统一的价值观就作为考核的必要原则，当然知根知底的亲属将是首要的选择。</p>
+<p>还有一部分人团结起来将一些大多数人需要的东西进行，地域或者时间性的垄断，让其他人得到这些东西时，支付给他们额外的在垄断时付出的劳动力成本，这其实就是商业的本质。</p>
+<p>所以你会发现，我们的劳动产出，不仅要支付团体管理层帮助我们管理时的那部分，还要支付生活必需品被垄断的额外费用，随着管理费用的水涨船高，或者我们生活必须的种类越来越多时，个人劳动产出将变得远远不够。这里不谈管理费用支出，为什么生活必须品变得越来越多，答案就是人类的欲望变得越来越繁多，欲望的产生来源于想象。</p>
+<p>而商人或者团体管理层，为了花费较少劳动力产出的商品重新换取更多的劳动生产力和保证管理层所有人的生产资料，必须调动团体内其他成员的劳动积极性，所以他们必须制造更多的想象，以让人们拥有更多欲望，并去通过劳动去实现他们的欲望，而很大程度上的劳动成果都流向了这两个地方。</p>
+<p>而如果团体内的管理层消耗和商人数量非常多，生活必备品的产出不足，也就是说团体内的生产力已经不足以支付这两方面的费用，那么只能通过去垄断或者掠夺其他团体的物品来满足本团体的消耗，这就又回到了原始的部落战征时代，而人们也没有因为技术手段的发展而变得轻松幸福，反而因为欲望和需要缴纳的管理费用是以前的成百上千倍而变得压力山大。</p>
+<p>试想如果没有掠夺、垄断和不稳定因素，我们也不需要登陆火星、非常快的汽车、非常快的网络和非常大规模的协作和交易，那么这些不必要的劳动支付也不将存在，去做简单的物物交换和知识传承，我们的劳动力支出也不会这么捉襟见肘。</p>
+<p>但人群中总有想通过掠夺、杀戮和垄断的手段获取劳动成果的成员，所以实现这种乌托邦非常困难。几千年前人们开始试图使用宗教去约束人们而消灭这些坏分子，但是宗教里也因为加入了这些人而导致宗教分裂和行为准则的不一致，甚至有些分裂的宗教本身就带有强烈的掠夺和杀戮性。</p>
+<p>而我们的社会目前状况看来，在这条道路上越走越远，就像人的一生一样，终将走向消亡。在可预期的未来，商人和管理层将制造出更多的想象，欲望也将不断增多，而只要存在于团体中，并为梦想奋斗，那我们大多数也将一如既往的辛苦，一如既往的不幸福。</p>
+<p>这也是很多人想逃离团体的原因。但在团体中，不为想象所动，异常艰难，但逃离就必须得放弃想象。</p>
 
             </div>
             <p class="_page"><span><a class="_pre_arc" href= "/think/post/1026.html">Pre</a></span> <span><a class="_next_arc" href="/think/post/1028.html"> Next </a></span></p>
