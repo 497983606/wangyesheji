@@ -25,8 +25,7 @@ developed independently
 * Other (in 2016): https://wangyesheji.cn/images/me
 ## Education
 
-* 2011-2014 -Yangling Vocational & Technical College (Water Conservancy Specialty)
-* 2017-2019 Xi’an Jiaotong University (Computer science and technology)
+* Xi’an Jiaotong University (Computer science and technology)
 ## Experience
 * 2015-2016-Xi’an Meritdata, UI engineer (BI design and web front-end development)
 * 2016-2017- Beijing Jhinno, front-end engineer, and project designer (IaaS and HPC)
