@@ -26,13 +26,6 @@ developed independently
 ## Education
 
 * Xi’an Jiaotong University (Computer science and technology)
-## Experience
-* 2015-2016-Xi’an Meritdata, UI engineer (BI design and web front-end development)
-* 2016-2017- Beijing Jhinno, front-end engineer, and project designer (IaaS and HPC)
-* 2017-2019- China west airport group, web front-end engineer and PM (Security)
-* 2019- Independent developer (iAsset)
-* 2020-Now Shaanxi Oceanx, Technical director web front-end engineer (Sensor, Wind
-power and Photovoltaic)
 ## Other
 I have a wide range of skills, and my first degree makes it possible for me to cross over
 fields, as I am familiar with business knowledge related to geographic information and civil
