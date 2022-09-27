@@ -7,14 +7,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content="vue electron-serialport 解决方案 ">
-    <meta name="description" content="工作中有使用到 electron 与硬件进行串口通信，所以调研了一下，好多次了，各个版本变化还是比较大的，这里记录一下一种可行的操作 ">
+    <meta name="keywords" content="Threejs 完全入门 ">
+    <meta name="description" content="Threejs 完全入门关键概念和技术总结 ">
 
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
     <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
-    <title>vue electron-serialport 解决方案 -Wheat October</title>
+    <title>Threejs 完全入门 -Wheat October</title>
 </head>
 <body>
     <div class="_main">
@@ -24,67 +24,182 @@
 </header>
         
         <main class="_content _arc">
-            <h1>vue electron-serialport 解决方案 </h1>
-            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2021-03-19 </span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
+            <h1>Threejs 完全入门 </h1>
+            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2022-08-29 </span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
             <div class="_markdown">
-                <!-- 1616093040000 -->
-<!-- vue electron-serialport 解决方案 -->
-<!-- 工作中有使用到 electron 与硬件进行串口通信，所以调研了一下，好多次了，各个版本变化还是比较大的，这里记录一下一种可行的操作 -->
+                <!-- 1661746029223 -->
+<!-- Threejs 完全入门 -->
+<!-- Threejs 完全入门关键概念和技术总结 -->
 <!--  -->
 <!-- Tech -->
-<h1 id="安装-electron">安装 electron</h1>
-<p>正常使用 cli 安装 vue，然后使用</p>
-<pre><code class="language-bash">vue add electron-builder
+
+<blockquote>
+<p>做了很久的 web3D 开发，也封装了一个比较好用的库，虽然没有达到自己要求的正式版本，但也经过了几次迭代，这其中学到了很多，这里做一次比较全面的入门总结。</p>
+</blockquote>
+<h2 id="什么是-threejs">什么是 Threejs</h2>
+<p>Threejs 是对 webGL 的封装，使其变得更加符合面向对象编程的语义，并且易于 Jacascript 开发者的理解，而 webGL 是对 openGL 的 web 移植，openGL 使用汇编作为编程语言，webGL 中的一个非常核心的 <code>Shader</code> 是使用 glsl 来编写。</p>
+<p>三维世界的基本对象是由点、线、三角形组成（三角网格），然后形状需要被放置在场景中（scene），然后场景中需要有灯光，还要设置视角相机（camera），如果视角需要通过鼠标控制运动，则还需要加上控制器。在 Threejs 中这些统一通过 renderer 逐帧渲染。</p>
+<h2 id="基本概念">基本概念</h2>
+<center> <img src=https://wangyesheji.cn/images/pic/threejs-1.jpg /> </center>
+
+<ul>
+<li><p><a href="https://threejs.org/docs/index.html#api/zh/core/Object3D">Object3d</a>： 所有空间对象都是 threejs 的 Object3d 对象，继承了该构造函数（基类）的属性和方法 </p>
+</li>
+<li><p><a href="https://threejs.org/docs/#api/zh/renderers/WebGLRenderer">渲染器 renderer</a>：它是Three.js的主要对象，场景(Scene)和摄像机(Camera)都需要传入渲染器(Renderer)中，通过它将摄像机视椎体中的三维场景渲染成一个二维图片显示在画布上</p>
+</li>
+<li><p><a href="https://threejs.org/docs/index.html#api/zh/scenes/Scene">场景 Scene</a>：它就相当于一个大容器，我们需要展示的所有物体都要放入场景。在场景中子对象的位置和方向总是相对于父对象而言的，比如我移动了父对象的位置，子对象也会一起移动。</p>
+</li>
+<li><p><a href="https://threejs.org/docs/index.html#api/zh/cameras/Camera">摄像机 camera</a>：它与其他对象不同的是，它不一定要在场景中才能起作用，它可以和场景同级。相同的是，摄像机(Camera)作为其他对象的子对象，同样会继承它父对象的位置和朝向。<br>  Three.js内置几种摄像机：</p>
+<ul>
+<li><code>PerspectiveCamera</code> 透视相机，这一投影模式被用来模拟人眼所看到的景象，它是3D场景的渲染中使用得最普遍的投影模式。</li>
+<li><code>CubeCamera</code> 立方相机，这一投影模式显示的景象是在一个立方范围内的。</li>
+<li><code>OrthographicCamera</code> 正交相机，在这种投影模式下，无论物体距离相机距离远或者近，在最终渲染的图片中物体的大小都保持不变。</li>
+</ul>
+</li>
+<li><p><a href="https://threejs.org/docs/#api/zh/geometries/BoxGeometry">几何体 geometry</a>：就是球体、立方体、平面、狗、猫、人、树、建筑等物体的顶点信息。<br>  Three.js内置了许多基本几何体：</p>
+<ul>
+<li><code>CubeGeometry</code> 立方体</li>
+<li><code>PlaneGeometry</code> 平面</li>
+<li><code>SphereGeometry</code> 球体</li>
+<li><code>CylinderGeometry</code> 圆柱体</li>
+<li><code>TorusGeometry</code> 圆环面</li>
+<li><code>TubeGeometry</code> 管道缓冲几何体</li>
+</ul>
+</li>
+<li><p><a href="https://threejs.org/docs/#api/zh/materials/Material">材质 material</a>：和几何体同时使用，表示几何体不同面的颜色，和光亮程度。<br>  Three.js内置了许多材质:</p>
+<ul>
+<li><code>MeshBasicMaterial</code> 基础网格材质，不受光照的影响。</li>
+<li><code>MeshDistanceMaterial</code> 通过点光源实现阴影的材质。</li>
+<li><code>MeshNormalMaterial</code> 一种把法向量映射到RGB颜色的材质。</li>
+</ul>
+</li>
+<li><p><a href="https://threejs.org/docs/index.html?q=light#api/zh/lights/Light">灯光 light</a>：和材质配合使用，通过不同的光源来修改颜色，添加阴影等。  </p>
+<ul>
+<li><code>AmbientLight</code> 环境光，会均匀的照亮场景中的所有物体。</li>
+<li><code>DirectionalLight</code> 平行光，是沿着特定方向发射的光。</li>
+<li><code>HemisphereLight</code> 半球光，光源直接放置于场景之上，光照颜色从天空光线颜色渐变到地面光线颜色。不可以投射阴影。</li>
+<li><code>PointLight</code> 点光源，从一个点向各个方向发射的光源。可以投射阴影。</li>
+</ul>
+</li>
+<li><p><a href="https://threejs.org/docs/#api/zh/textures/Texture">纹理 texture</a>：创建一个纹理贴图，将其应用到一个表面，或者作为反射/折射贴图。可以多个纹理同时在一个材质上使用。</p>
+</li>
+<li><p><a href="https://threejs.org/docs/#api/zh/objects/Mesh">网格 Mesh</a>：需要传入几何体和材质组合为一个带有位置和方向的特殊几何体。</p>
+<blockquote>
+<p>three.js中几何体是不能直接渲染的。在three.js有一种类型物体，这种类型放入场景中才能直接渲染图形。网格（Mesh）是这种类型中的一种。</p>
+</blockquote>
+</li>
+<li><p><a href="https://threejs.org/docs/index.html#examples/zh/controls/DragControls">控制器 controls</a>：通过控制器可以改变与其关联的相机的位置和观察目标（position，target=lookAt）。</p>
+</li>
+</ul>
+<h2 id="常见功能说明">常见功能说明</h2>
+<p>常用的相机是 <code>PerspectiveCamera</code>，常用的控制器是<code>OrbitControls</code>.</p>
+<h3 id="相机">相机</h3>
+<p>初始化一个 PerspectiveCamera 相机代码如下：</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> camera = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PerspectiveCamera</span>(<span class="hljs-number">45</span>, <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerWidth</span> / <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerHeight</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10000</span>)
+    camera.<span class="hljs-property">name</span> = <span class="hljs-string">&#x27;mainCamera&#x27;</span>
+    camera.<span class="hljs-property">position</span>.<span class="hljs-title function_">set</span>(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">20</span>)
+    camera.<span class="hljs-property">up</span>.<span class="hljs-title function_">set</span>( <span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span> )
+    camera.<span class="hljs-title function_">lookAt</span>( <span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span> )
 </code></pre>
-<p>命令为 cli 安装插件，这个时候这个插件就会在目录下创建一堆文件并且改变文件夹</p>
-<p>然后在项目根目录下创建 <code>.npmrc</code>文件，在里面粘贴，原因可参见这篇文章：<code>https://segmentfault.com/q/1010000007594059</code></p>
-<pre><code class="language-bash">registry=https://registry.npm.taobao.org
-sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
-phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
-electron_mirror=http://npm.taobao.org/mirrors/electron/
+<ul>
+<li>lookAt：如上图所示，默认的 Threejs 坐标系是<code>笛卡尔坐标系</code>，也就是 Y 轴朝上，Z 轴像屏幕法线方向，X 轴横向向右，但需要知道相机是如何观察的，上图中有一个笑脸是正常看向 (0,0,0) 点的，也就是相机的 lookAt 为 (0,0,0)，当场景中存在控制器接管 camera ，如使用 OrbitControls 控制器，那此属性和 target 相等。</li>
+<li>position：相机的 position 和 lookAt 属性决定了从哪里看向哪里</li>
+<li>up：上图中有一个笑脸是横向的，也就是顺着 Z 轴躺着看的效果，那么也就是 Z 轴朝上，则这个时候需要设置相机的 up.set(0,0,1)，这三个参数是个向量值，最大为 1，如果某两个设置为 1 那么就是以这两个的轴的分量为向上去观察场景（scene）</li>
+</ul>
+<h3 id="控制器">控制器</h3>
+<p>大部分控制器就是作用相机的 position 和 lookAt 实现交互的，但有的如 <code>DragControls</code> 不是。</p>
+<h3 id="几何体">几何体</h3>
+<p>Threejs 自带了很多几何形状，如 球、长方体、平面、圆平面、棱柱/锥、闭合形状、线条…，还有对几何形状的操纵，如挤压拉伸、打孔、合并、交集、减去、车削、阵列等，实际上就是对顶点的各种运算，可以使用这些基本的几何形状创造出各种形状。</p>
+<h3 id="外部模型">外部模型</h3>
+<p>Threejs 可以通过插件加载外部模型，并且转换为 Threejs Mesh 对象，通常包含多个 Mash 的组。Threejs 支持比较好的是 fbx 和 glb 格式的模型，一般我们使用开源的 <a href="https://www.blender.org/">blender</a> 去建模和压缩，以减少其三角面数量，提升加载速度。</p>
+<h3 id="换肤">换肤</h3>
+<p>每个 Mesh 都是由 geometry（几何体） 和 Material（材质）组成，我们可以动态改变任何参数，只需要在修改后执行一下 renderer ，但修改 geometry（几何体）后需要根据特定情况执行 mesh.update.updateMatrixWorld()，Threejs 的贴图非常强大好用，很多炫酷的东西都是通过贴图实现的，如扩散的圆圈，只要没有扫描效果都不需要用到着色器，贴图就可以搞定。</p>
+<h3 id="组">组</h3>
+<p>多个几何体还可以形成组，因为 Mesh 对象的旋转操作只能围绕其原型，所以很多时候我们使用将其放入组的特定位置，然后旋转组的方式改变其旋转中心。注意旋转的参数是 弧度（欧拉角），如我们要旋转 90° 那么实际上这个数字是：90 / 180 * Math.PI</p>
+<h3 id="动画">动画</h3>
+<p><a href="https://tweenjs.github.io/tween.js/">Tween</a>，<a href="https://greensock.com/">GSAP</a> 可以<a href="https://baike.baidu.com/item/%E8%A1%A5%E9%97%B4%E5%8A%A8%E7%94%BB">补间</a>操作 <code>某个对象</code> 的 <code>某个属性</code> 在 <code>某段时间</code> 内按照 <code>某个滑动曲线</code> 运行，并且支持循环运动等。另外也可以逐帧改变某个属性去操作，注意使用 Clock 构造函数，保持不同帧率下相同运动大小。</p>
+<h3 id="天空">天空</h3>
+<p>Threejs 的天空一般时使用六面无缝拼接的天空图片组成，将其作为 scene 的六个内面的贴图（scene 实际上是一个长方体），但也提供了其他实现，如 <a href="https://github.com/mrdoob/three.js/blob/master/examples/webgl_shaders_sky.html">./jsm/objects/Sky.js</a> 实现了真是天空和太阳的组合，但性能开销也较大。同样的也有海洋水面。</p>
+<h3 id="镜面地板">镜面地板</h3>
+<p>Threejs 有一个 <a href="https://github.com/mrdoob/three.js/blob/master/examples/webgl_mirror.html">/jsm/objects/Reflector</a> 来将一个平面改为一个镜面，需要注意的是 clearColor 不能为透明。</p>
+<h3 id="大地坐标系（墨卡托、经纬度）">大地坐标系（墨卡托、经纬度）</h3>
+<p>直接将坐标数值应用在 Threejs 世界中（不需要展示球体，如果使用球体场景请移步 <a href="https://cesium.com/platform/cesiumjs/">cesium</a> 当然你也可以使用 <a href="https://www.mapbox.com/">mapbox</a> ），请记得将 camera.up 设置为 (0,0,1)的 Z 轴朝上的视角模式</p>
+<h3 id="地形展示（剖面、等高线）">地形展示（剖面、等高线）</h3>
+<p>首先需要下载地形数据，一般为 DEM 数据的一个 tif 图片，使用 <a href="https://www.npmjs.com/package/geotiff">geotiff</a> 加载后即可得到一个从左往右从上往下扫描的搞成数据组，然后建立一个同等大小的平面，将其三角网格数量设置为与 tif 长宽一致（各减去 1 ，是因为间隔数总比点数少一个），然后便利高程点数组去修改平面三元数组中的高程数据。如下代码示例：</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> rawTiff = <span class="hljs-keyword">await</span> <span class="hljs-title class_">GeoTIFF</span>.<span class="hljs-title function_">fromUrl</span>( <span class="hljs-string">&#x27;./dem.tif&#x27;</span> );
+<span class="hljs-keyword">const</span> tifImage = <span class="hljs-keyword">await</span> rawTiff.<span class="hljs-title function_">getImage</span>();
+<span class="hljs-comment">// Our initial plane geometry</span>
+<span class="hljs-keyword">const</span> geometry = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">PlaneGeometry</span>( w, h, tifImage.<span class="hljs-title function_">getWidth</span>() - <span class="hljs-number">1</span>, tifImage.<span class="hljs-title function_">getHeight</span>() - <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Read image pixel values that each pixel corresponding a height</span>
+<span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> tifImage.<span class="hljs-title function_">readRasters</span>({ <span class="hljs-attr">interleave</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">// Fill z values of the geometry</span>
+<span class="hljs-keyword">const</span> posAttr = geometry.<span class="hljs-property">attributes</span>.<span class="hljs-property">position</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; posAttr.<span class="hljs-property">count</span>; i++) {
+    posAttr.<span class="hljs-property">array</span>[<span class="hljs-number">3</span> * i + <span class="hljs-number">2</span>] = data[i];
+    <span class="hljs-keyword">if</span>(data[i] &gt; maxHeight) maxHeight = data[i]
+    <span class="hljs-keyword">if</span>(data[i] &lt; minHeight) minHeight = data[i]
+}
 </code></pre>
-<p>然后 install 推荐使用 yarn</p>
-<h1 id="serialport-支持">serialport 支持</h1>
-<p>如果项目中有用到 serialport （各版本差异比较大，注意api），在<code>vue.config.js</code> 里面增加</p>
-<pre><code class="language-js">...
-<span class="hljs-attr">pluginOptions</span>: {
-  <span class="hljs-attr">electronBuilder</span>: {
-    <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
-...
+<p>等高线需要借助 <a href="https://observablehq.com/collection/@d3/d3-contour">d3-contour</a>（一个 d3js 的插件）去得到等高线的 path 带高程标识的数据集，然后在 threejs 中用 line 或者 line2 等绘制出来。</p>
+<p>同样的还可以通过 d3js 的一些插件运算器填挖方体积、剖面曲线等。</p>
+<h3 id="html-标签">html 标签</h3>
+<p>创建一个实际的 html 元素，然后给他设置为决定定位，通过 threejs 世界坐标系转屏幕坐标系计算出 html 元素的位置，然后在 controls 运动的回调中修改，具体转换代码如下所示：</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> vector =  point.<span class="hljs-title function_">clone</span>().<span class="hljs-title function_">project</span>(camera);
+<span class="hljs-keyword">let</span> halfWidth = el.<span class="hljs-property">offsetWidth</span> / <span class="hljs-number">2</span>,  <span class="hljs-comment">// el 是 threejs 容器元素</span>
+    halfHeight = el.<span class="hljs-property">offsetHeight</span> / <span class="hljs-number">2</span>;  
+<span class="hljs-keyword">return</span> {  
+    <span class="hljs-attr">x</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(vector.<span class="hljs-property">x</span> * halfWidth + halfWidth), 
+    <span class="hljs-attr">y</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">round</span>(-vector.<span class="hljs-property">y</span> * halfHeight + halfHeight)
+}; 
 </code></pre>
-<p>PS：一个比较完整的打包配置</p>
-<pre><code class="language-js"><span class="hljs-attr">electronBuilder</span>: {
-  <span class="hljs-comment">// List native deps here if they don&#x27;t work</span>
-  <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
-  <span class="hljs-attr">nodeModulesPath</span>: [<span class="hljs-string">&#x27;../../node_modules&#x27;</span>, <span class="hljs-string">&#x27;./node_modules&#x27;</span>],
-  <span class="hljs-attr">builderOptions</span>: {
-        <span class="hljs-attr">appId</span>: <span class="hljs-string">&quot;com.oceanx.app&quot;</span>,
-        <span class="hljs-attr">productName</span>: <span class="hljs-string">&quot;LagrangeSingle&quot;</span>, <span class="hljs-comment">//项目名，也是生成的安装文件名</span>
-        <span class="hljs-attr">copyright</span>: <span class="hljs-string">&quot;------&quot;</span>, <span class="hljs-comment">//版权信息</span>
-        <span class="hljs-attr">directories</span>: {
-                <span class="hljs-attr">output</span>: <span class="hljs-string">&quot;./dist_electron&quot;</span>, <span class="hljs-comment">//输出文件路径</span>
-        },
-        <span class="hljs-comment">// 不被打包的文件夹（根目录下，引用时使用 path.join(!isDevelopment ? __dirname : __static , &#x27;../文件夹名称&#x27;）</span>
-        <span class="hljs-attr">extraResources</span>: [<span class="hljs-string">&#x27;./live_video&#x27;</span>, <span class="hljs-string">&#x27;./sensor_file&#x27;</span>],
-        <span class="hljs-attr">nsis</span>: {
-                <span class="hljs-string">&quot;oneClick&quot;</span>: <span class="hljs-literal">false</span>,
-                <span class="hljs-string">&quot;allowToChangeInstallationDirectory&quot;</span>: <span class="hljs-literal">true</span>
-        },
-        <span class="hljs-attr">win</span>: {
-                <span class="hljs-comment">//win相关配置</span>
-                <span class="hljs-attr">icon</span>: <span class="hljs-string">&quot;./icons/icon.ico&quot;</span>, <span class="hljs-comment">//图标，当前图标在根目录下，注意这里有两个坑</span>
-                <span class="hljs-attr">target</span>: [
-                        {
-                                <span class="hljs-attr">target</span>: <span class="hljs-string">&quot;nsis&quot;</span>, <span class="hljs-comment">//利用nsis制作安装程序</span>
-                                <span class="hljs-attr">arch</span>: [
-                                        <span class="hljs-string">&quot;x64&quot;</span>, <span class="hljs-comment">//64位</span>
-                                ],
-                        },
-                ],
-        },
-    },
-},
+<h3 id="大量点绘制（雨点、雪花）">大量点绘制（雨点、雪花）</h3>
+<p>如果需要大量绘制不同大小、不同颜色、材质的点图形，则需要用到着色器，需要手动构建一个顶点存储的三元数组，然后构建一个存储颜色的三元数组（rgb）一起一个存储尺寸的数组，代码如下所示：</p>
+<pre><code class="language-js">points <span class="hljs-comment">// [x,y,z,x,y,z,x,y,z,x,y,z]</span>
+<span class="hljs-keyword">let</span> positions = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Float32Array</span>( points )
+
+colors <span class="hljs-comment">// [r,g,b,r,g,b,r,g,b,r,g,b]</span>
+<span class="hljs-keyword">let</span> colors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>( colors )
+
+<span class="hljs-keyword">let</span> size = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>]
+
+geom.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&#x27;position&#x27;</span>, <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">BufferAttribute</span>(positions, <span class="hljs-number">3</span>))
+geom.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&#x27;ca&#x27;</span>, <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Float32BufferAttribute</span>(colors, <span class="hljs-number">3</span>))
+geom.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&#x27;size&#x27;</span>, <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">Float32BufferAttribute</span>( sizes, <span class="hljs-number">1</span> ))
+
+<span class="hljs-comment">// 着色器材质使用</span>
+
+<span class="hljs-keyword">const</span> material = <span class="hljs-keyword">new</span> <span class="hljs-variable constant_">THREE</span>.<span class="hljs-title class_">ShaderMaterial</span>( {
+ <span class="hljs-comment">// 顶点着色器输出点的尺寸、位置</span>
+ <span class="hljs-attr">vertexShader</span>:  <span class="hljs-string">` 
+  attribute float size;  ## 获取当前点的 size 
+  attribute vec3 ca;	 ## 获取当前点的 color
+  varying vec3 vColor;   ## 声明一个变量
+  void main( void ) {
+    vColor = ca;         ## 存储当前 color 数据到刚才的变量
+    vec4 mvPosition = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );   ## 存储顶点位置，为坐标系作用的视角窗口作用的 4 元对象（x,y,z,w）
+    gl_Position = mvPosition;  
+    gl_PointSize = size; ## 设置顶点尺寸
+  }`</span>,
+ <span class="hljs-comment">// 片源着色器输出片段颜色、材质等</span>
+ <span class="hljs-attr">fragmentShader</span>:<span class="hljs-string">`
+  uniform vec3 color;   ## 获得 uv 颜色，本次未设置则为 0,0,0
+  varying vec3 vColor;  ## 获得上面存储的变量
+  void main() {
+    vec4 color = vec4( vColor, 1.0 );  ## 转换为颜色 4 元对象（rgba）
+    gl_FragColor = color; ## 设置颜色
+  }`</span>,
+})
 </code></pre>
+<h3 id="性能优化">性能优化</h3>
+<ul>
+<li>材质共用</li>
+<li>及时销毁网格对象，包含材质和几何体</li>
+<li>减少网格面</li>
+<li>合并对象和材质</li>
+<li>巧妙使用着色器</li>
+<li>动态加载对象</li>
+<li>改造 renderer 时机</li>
+</ul>
 
             </div>
             <p class="_page"><span><a class="_pre_arc" href= "/tech/post/1024.html">Pre</a></span> <span><a class="_next_arc" href="/tech/post/1026.html"> Next </a></span></p>
