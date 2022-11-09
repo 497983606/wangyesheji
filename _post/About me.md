@@ -35,3 +35,11 @@ development and server-side development.
 I have a wide range of hobbies (soccer, music ......), curious about the world, active and
 inclusive, and good at thinking. So, I look forward
 You can add my wechat c497983606
+
+## About blog system
+
+Sometimes, I hate those blog systems on the web, so create this blog system when I have free time.
+
+It's so easy and base on markdown, taked me an afternoon.
+
+If you like, you can view on github(https://github.com/497983606/wangyesheji/tree/page), How to use? may be you can look code, is easy, ememem... but there is a lot of redundancy code, so please sorry! you can change it by a fork.
