@@ -59,7 +59,7 @@ if( process.env.BUILD_MODE === 'lib' ){
 ```
 
 如果还需要 publish 到 npm 平台，就需要配置一下两个地方：`package.json` 里面根下配置 
-```json
+```js
 {
 ...
 // 指定你在 import 'lib_name' 索引的文件
@@ -95,6 +95,15 @@ export default {
   lib2,
   lib3
 };
+```
+
+另外还需要配置一下 `.npmignore`文件，避免把不需要的代码提交上去，里面的内容可以这么写：
+```bash
+src/
+dist/
+public/
+vite.config.js
+README.md
 ```
 
 好了，至此一个 vite 打包的较为详细的步骤就完成了，可以开心的写代码啦~~~

@@ -81,10 +81,10 @@
   }
 </code></pre>
 <p>如果还需要 publish 到 npm 平台，就需要配置一下两个地方：<code>package.json</code> 里面根下配置 </p>
-<pre><code class="language-json">{
+<pre><code class="language-js">{
 ...
-// 指定你在 import &#x27;lib_name&#x27; 索引的文件
-&quot;main&quot;: &quot;lib_name/lib_name.js&quot;,
+<span class="hljs-comment">// 指定你在 import &#x27;lib_name&#x27; 索引的文件</span>
+<span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib_name/lib_name.js&quot;</span>,
 }
 </code></pre>
 <p>因为只有一个配置，所以如果要推动到 npm 只能是一个库一个 main 说明，如果你想全部都推上去，用一个 main 可以把其他的库都挂在 <code>./src/package/index.js</code> 里面输出，具体这样写：</p>
@@ -114,6 +114,13 @@
   lib2,
   lib3
 };
+</code></pre>
+<p>另外还需要配置一下 <code>.npmignore</code>文件，避免把不需要的代码提交上去，里面的内容可以这么写：</p>
+<pre><code class="language-bash">src/
+dist/
+public/
+vite.config.js
+README.md
 </code></pre>
 <p>好了，至此一个 vite 打包的较为详细的步骤就完成了，可以开心的写代码啦~~~</p>
 
