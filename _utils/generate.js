@@ -135,8 +135,8 @@ module.exports = ( tmpls, markdowns ) => {
         else if(ar == 'thumbReg') _cont = i.img
         else if(ar == 'descReg') _cont = i.describe
         else if(ar == 'arcTypeReg') _cont = `<a href='/${key}'>${i.type}</a>`
-        else if(ar == 'arcPreReg' && idx !== 0  && navItme.type == 'list' ) _cont = `<a class="_pre_arc" href= "/${key}/post/${( Number(idx - 1) + webSite.postStart ) }.html">${ webSite.lang.pre }</a>`
-        else if(ar == 'arcNextReg' && idx+1 !== arcs.length && navItme.type == 'list') _cont = `<a class="_next_arc" href="/${key}/post/${( Number(idx + 1) + webSite.postStart ) }.html"> ${ webSite.lang.next } </a>`
+        else if(ar == 'arcPreReg' && idx !== 0  && navItme.type == 'list' ) _cont = `<a class="_pre_arc" href= "/${key}/post/${( Number(idx - 1) + webSite.postStart ) }.html">${  webSite.lang.next}</a>`
+        else if(ar == 'arcNextReg' && idx+1 !== arcs.length && navItme.type == 'list') _cont = `<a class="_next_arc" href="/${key}/post/${( Number(idx + 1) + webSite.postStart ) }.html"> ${ webSite.lang.pre } </a>`
         arc = arc.replace(new RegExp(Regs[ar]), _cont)
       })
       let path = "", webPath = ""
