@@ -34,7 +34,7 @@ requirements to product design, project control, interface development, database
 development and server-side development.
 I have a wide range of hobbies (soccer, music ......), curious about the world, active and
 inclusive, and good at thinking. So, I look forward
-You can add my wechat c497983606
+You can add my wechat Is_Joshua
 
 ## About blog system
 
