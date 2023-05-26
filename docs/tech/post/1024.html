@@ -7,14 +7,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content="vite 打包说明 ">
-    <meta name="description" content="vite 打包说明 的前言 ">
+    <meta name="keywords" content="mongoDB 初学 ">
+    <meta name="description" content="mongoDB 初学 的前言 ">
 
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
     <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
-    <title>vite 打包说明 -Wheat October</title>
+    <title>mongoDB 初学 -Wheat October</title>
 </head>
 <body>
     <div class="_main">
@@ -24,105 +24,341 @@
 </header>
         
         <main class="_content _arc">
-            <h1>vite 打包说明 </h1>
-            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2023-05-08 </span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
+            <h1>mongoDB 初学 </h1>
+            <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2023-05-26 </span> <span class="type"> <a href='/tech'>Tech </a> </span></p>
             <div class="_markdown">
-                <!-- 1683514198710 -->
-<!-- vite 打包说明 -->
-<!-- vite 打包说明 的前言 -->
+                <!-- 1685082304914 -->
+<!-- mongoDB 初学 -->
+<!-- mongoDB 初学 的前言 -->
 <!--  -->
 <!-- Tech -->
 
-<p>最近因为招到一个帮手，所以把一直落下的组件整理工作重拾起来，这次准备整理出来一套完全符合公司业务的功能套件，包含以下几个：</p>
+<h2 id="1-连接数据库">1 连接数据库</h2>
+<pre><code class="language-js"><span class="hljs-comment">// 第一步</span>
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;mongoose&#x27;</span>);
+
+<span class="hljs-comment">// 第二步连接数据库</span>
+mongoose.<span class="hljs-title function_">connect</span>(<span class="hljs-string">&#x27;mongodb://root:123456@localhost/nest_cms&#x27;</span>, { <span class="hljs-attr">useNewUrlParser</span>: <span class="hljs-literal">true</span> }, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;连接错误&#x27;</span>);
+        <span class="hljs-keyword">return</span>;
+    }
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;mongodb连接成功&#x27;</span>);
+});
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose;
+</code></pre>
+<h2 id="2-使用-schema-定义">2 使用 schema 定义</h2>
+<blockquote>
+<p>定义</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
+    <span class="hljs-attr">name</span>: <span class="hljs-title class_">String</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-title class_">Number</span>,
+    <span class="hljs-attr">status</span>: { <span class="hljs-comment">// 默认参数</span>
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+        <span class="hljs-attr">default</span>: <span class="hljs-number">1</span>,
+    }
+})
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>,<span class="hljs-title class_">UserSchema</span>,<span class="hljs-string">&#x27;user&#x27;</span>);
+</code></pre>
+<blockquote>
+<p>使用</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/user&#x27;</span>);
+
+<span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserModel</span>({
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;李四&#x27;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>
+});
+user.<span class="hljs-title function_">save</span>(<span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;保存数据错误&#x27;</span>)
+    }
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;保存数据成功&#x27;</span>);
+});
+</code></pre>
+<pre><code class="language-js">[ { <span class="hljs-attr">status</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">_id</span>: 5e0fdb9d6e124d1f3096d9f3,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-attr">__v</span>: <span class="hljs-number">0</span> },
+  { <span class="hljs-attr">status</span>: <span class="hljs-number">1</span>, <span class="hljs-comment">// 默认插入的是1</span>
+    <span class="hljs-attr">_id</span>: 5e0fdbca98ff701f9006afcd,
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;李四&#x27;</span>,
+    <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-attr">__v</span>: <span class="hljs-number">0</span> } ]
+</code></pre>
+<h2 id="3-使用预定义模型修饰">3 使用预定义模型修饰</h2>
+<blockquote>
+<p>mongoose中内置的预定义修饰符主要有</p>
+</blockquote>
 <ul>
-<li>前后端统一的（根据数据库字段实例模型字典生成）快速实现增删改查的组件，设计 Form 和 Table</li>
-<li>符合时序数据库的自定义统计的前后端统一组件（用代码配置实现 BI，后端实现计算和聚合，没有用到 Grphql）</li>
-<li>3D 库，对已经迭代过两次的基于 Threejs 封装的 3D 数字孪生场景开发库进行重构</li>
-<li>算子与任务模块，实现与上述的自定义统计组件一体的算子定义（可以配合 Python，自定义统计可以根据数据内容得出相关的微分方程或者预测曲线公式），关联、任务调度设置功能</li>
-<li>WebRTC 本地视频解码组件优化，这个组件实现了 web 界面的低延时 RTSP 流播放</li>
+<li>lowercase</li>
+<li>uppercase</li>
+<li>trim</li>
 </ul>
-<p>目标现在明确了，需要用 vite 进行组件打包甚至上传到 npm 包管理平台的需求，经过仔细阅读 vite 文档，把相关方法记录在此。</p>
-<h3 id="配置-vite">配置 Vite</h3>
-<p>根据需求得知我需要配置集中打包模式：App（文档），增删改查组件、3D 库、BI 组件、算子与任务模块、WebRTC 模块。可以这样做，再 <code>package.json</code> 如此配置：</p>
-<pre><code class="language-json">{
-  &quot;scripts&quot;: {
-    ...
-    &quot;build:lib&quot;: &quot;set BUILD_MODE=lib&amp;&amp; vite build&quot;,
-  },
+<blockquote>
+<p>在schema中使用</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
+    <span class="hljs-attr">name</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">age</span>: <span class="hljs-title class_">Number</span>,
+    <span class="hljs-attr">message1</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">lowercase</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">message2</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">uppercase</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">status</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+        <span class="hljs-attr">default</span>: <span class="hljs-number">1</span>,
+    }
+})
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>,<span class="hljs-title class_">UserSchema</span>,<span class="hljs-string">&#x27;user&#x27;</span>);
+</code></pre>
+<h2 id="4-mogoose中预定义的set和get修饰符">4 mogoose中预定义的set和get修饰符</h2>
+<blockquote>
+<p>定义schema</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">NewSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
+    <span class="hljs-attr">title</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">author</span>: <span class="hljs-title class_">String</span>,
+    <span class="hljs-attr">avatar</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-title function_">set</span>(<span class="hljs-params">url</span>) {
+            <span class="hljs-keyword">if</span> (!url) {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>;
+            }
+            <span class="hljs-keyword">if</span> (url.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&#x27;http://&#x27;</span>) !=<span class="hljs-number">0</span> &amp;&amp; url.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&#x27;https://&#x27;</span>) !=<span class="hljs-number">0</span>) {
+                url = <span class="hljs-string">&#x27;http://&#x27;</span> + url;
+            }
+            <span class="hljs-keyword">return</span> url;
+        }
+    }
+})
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;New&#x27;</span>, <span class="hljs-title class_">NewSchema</span>, <span class="hljs-string">&#x27;new&#x27;</span>);
+</code></pre>
+<blockquote>
+<p>插入一条数据</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">NewModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/new&#x27;</span>);
+
+<span class="hljs-keyword">const</span> news = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NewModel</span>({
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;文章一&#x27;</span>,
+    <span class="hljs-attr">author</span>: <span class="hljs-string">&#x27;张三&#x27;</span>,
+    <span class="hljs-attr">avatar</span>: <span class="hljs-string">&#x27;xx.png&#x27;</span>
+})
+
+news.<span class="hljs-title function_">save</span>();
+</code></pre>
+<blockquote>
+<p>查询结果</p>
+</blockquote>
+<pre><code class="language-js">{
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e0fe0b971428227107241c1&quot;</span>),
+    <span class="hljs-string">&quot;title&quot;</span> : <span class="hljs-string">&quot;文章一&quot;</span>,
+    <span class="hljs-string">&quot;author&quot;</span> : <span class="hljs-string">&quot;张三&quot;</span>,
+    <span class="hljs-string">&quot;avatar&quot;</span> : <span class="hljs-string">&quot;http://xx.png&quot;</span>,
+    <span class="hljs-string">&quot;__v&quot;</span> : <span class="hljs-number">0</span>
+}
+</code></pre>
+<h2 id="5-mongodb中的索引">5 mongodb中的索引</h2>
+<p>1、索引的作用</p>
+<blockquote>
+<p>索引是对数据库表中一列或多列的值进行排序的一种结构，可以让我们查询数据库变得更快。MongoDB 的索引几乎与传统的关系型数据库一模一样，这其中也包括一些基本的查询优化技巧。</p>
+</blockquote>
+<p>2、创建索引</p>
+<pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({字段:<span class="hljs-number">1</span>}) <span class="hljs-comment">// 普通索引</span>
+</code></pre>
+<p>3、获取索引</p>
+<pre><code class="language-js">db.user.getIndexes()
+</code></pre>
+<p>4、删除索引</p>
+<pre><code class="language-js">db.user.dropIndex({字段:1})
+</code></pre>
+<p>5、复合索引</p>
+<pre><code class="language-js"><span class="hljs-comment">// 数字 1 表示 username 键的索引按升序存储，-1 表示 age 键的索引按照降序方式存储</span>
+db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({<span class="hljs-string">&quot;username&quot;</span>:<span class="hljs-number">1</span>, <span class="hljs-string">&quot;age&quot;</span>:-<span class="hljs-number">1</span>})
+</code></pre>
+<p>6、唯一索引</p>
+<pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({<span class="hljs-string">&quot;userid&quot;</span>:<span class="hljs-number">1</span>},{<span class="hljs-string">&quot;unique&quot;</span>:<span class="hljs-literal">true</span>})
+</code></pre>
+<h2 id="6-mongoose中的schema创建索引">6 mongoose中的schema创建索引</h2>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
+    <span class="hljs-attr">name</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">trim</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 创建唯一索引</span>
+    },
+    <span class="hljs-attr">age</span>: <span class="hljs-title class_">Number</span>,
+    <span class="hljs-attr">message1</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">lowercase</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">message2</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+        <span class="hljs-attr">uppercase</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">status</span>: {
+        <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+        <span class="hljs-attr">default</span>: <span class="hljs-number">1</span>,
+    }
+})
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>,<span class="hljs-title class_">UserSchema</span>,<span class="hljs-string">&#x27;user&#x27;</span>);
+</code></pre>
+<h2 id="7-时间的使用">7 时间的使用</h2>
+<blockquote>
+<p>定义schema中使用timestamps属性</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db.js&#x27;</span>);
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">UserSchema</span> = <span class="hljs-keyword">new</span> mongoose.<span class="hljs-title class_">Schema</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-attr">mobile</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-attr">status</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-number">1</span>
+  }
+}, {
+  <span class="hljs-comment">//设置时间戳</span>
+  <span class="hljs-attr">timestamps</span>: <span class="hljs-literal">true</span>
+});
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>, <span class="hljs-string">&#x27;user&#x27;</span>);
+</code></pre>
+<blockquote>
+<p>创建数据</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/user&#x27;</span>);
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserModel</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;王五&#x27;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-attr">mobile</span>: <span class="hljs-number">100</span>,
+  <span class="hljs-attr">status</span>: <span class="hljs-number">0</span>
+});
+
+user.<span class="hljs-title function_">save</span>();
+</code></pre>
+<blockquote>
+<p>查询出创建后的数据</p>
+</blockquote>
+<pre><code class="language-js">{
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12a7f6c63086a54eed0a47&quot;</span>),
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;王五&quot;</span>,
+    <span class="hljs-string">&quot;age&quot;</span> : <span class="hljs-number">20</span>,
+    <span class="hljs-string">&quot;mobile&quot;</span> : <span class="hljs-number">100</span>,
+    <span class="hljs-string">&quot;createdAt&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:22:30.336Z&quot;</span>), <span class="hljs-comment">// 与系统默认时间相差8小时</span>
+    <span class="hljs-string">&quot;updatedAt&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:22:30.336Z&quot;</span>),
+    <span class="hljs-string">&quot;__v&quot;</span> : <span class="hljs-number">0</span>
 }
 </code></pre>
 <blockquote>
-<p>这里要注意一下，<code>BUILD_MODE=lib&amp;&amp; vite build</code> 不要图好看写成 <code>BUILD_MODE=lib &amp;&amp; vite build</code> 把 lib 和 &amp;&amp; 空格开，这样就会导致 <code>process.env.BUILD_MODE === &#39;lib &#39;</code></p>
+<p>修改createdAt和updatedAt显示</p>
 </blockquote>
-<p>然后再 <code>vite.config.js</code> 里面做判断，对不同的打包要求进行不同的配置，大概如下所示：</p>
-<pre><code class="language-js"><span class="hljs-keyword">if</span>( process.<span class="hljs-property">env</span>.<span class="hljs-property">BUILD_MODE</span> === <span class="hljs-string">&#x27;lib&#x27;</span> ){
-    config.<span class="hljs-property">build</span> = {
-      <span class="hljs-comment">// 这个库打包输出的目录，可以和其他的区分开</span>
-      <span class="hljs-attr">outDir</span>: <span class="hljs-string">&quot;lib_name&quot;</span>, 
-      <span class="hljs-attr">lib</span>: {
-        <span class="hljs-comment">//指定组件编译入口文件</span>
-        <span class="hljs-attr">entry</span>: path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">&quot;./src/package/index.js&quot;</span>),
-        <span class="hljs-comment">// 打包后生成的全局变量名称 </span>
-        <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;lib_name&quot;</span>,   
-        <span class="hljs-comment">// 打包的 js 文件名</span>
-        <span class="hljs-attr">fileName</span>: <span class="hljs-string">&quot;lib_name&quot;</span>,  
-      },
-      <span class="hljs-attr">rollupOptions</span>: {
-        <span class="hljs-comment">// 确保外部化处理那些你不想打包进库的依赖</span>
-        <span class="hljs-attr">external</span>: [<span class="hljs-string">&quot;vue&quot;</span>],
-        <span class="hljs-attr">output</span>: {
-          <span class="hljs-comment">// 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量</span>
-          <span class="hljs-attr">globals</span>: {
-            <span class="hljs-attr">vue</span>: <span class="hljs-string">&quot;Vue&quot;</span>,
-          }
-        },
-      }
-    }
+<pre><code class="language-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db.js&#x27;</span>);
+
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">UserSchema</span> = <span class="hljs-keyword">new</span> mongoose.<span class="hljs-title class_">Schema</span>({
+  <span class="hljs-attr">name</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-attr">mobile</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-attr">status</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+    <span class="hljs-attr">default</span>: <span class="hljs-number">1</span>
   }
+}, {
+  <span class="hljs-comment">//设置时间戳</span>
+  <span class="hljs-attr">timestamps</span>: {
+    <span class="hljs-attr">createdAt</span>: <span class="hljs-string">&#x27;created_at&#x27;</span>,
+    <span class="hljs-attr">updatedAt</span>: <span class="hljs-string">&quot;updated_at&quot;</span>
+  }
+});
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>, <span class="hljs-string">&#x27;user&#x27;</span>);
 </code></pre>
-<p>如果还需要 publish 到 npm 平台，就需要配置一下两个地方：<code>package.json</code> 里面根下配置 </p>
+<blockquote>
+<p>创建出来的数据</p>
+</blockquote>
 <pre><code class="language-js">{
-...
-<span class="hljs-comment">// 指定你在 import &#x27;lib_name&#x27; 索引的文件</span>
-<span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-string">&quot;lib_name/lib_name.js&quot;</span>,
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12ac19a1b9cfab59fbd913&quot;</span>),
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;马六&quot;</span>,
+    <span class="hljs-string">&quot;age&quot;</span> : <span class="hljs-number">20</span>,
+    <span class="hljs-string">&quot;mobile&quot;</span> : <span class="hljs-number">100</span>,
+    <span class="hljs-string">&quot;created_at&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:40:09.560Z&quot;</span>),
+    <span class="hljs-string">&quot;updated_at&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:40:09.560Z&quot;</span>),
+    <span class="hljs-string">&quot;__v&quot;</span> : <span class="hljs-number">0</span>
 }
 </code></pre>
-<p>因为只有一个配置，所以如果要推动到 npm 只能是一个库一个 main 说明，如果你想全部都推上去，用一个 main 可以把其他的库都挂在 <code>./src/package/index.js</code> 里面输出，具体这样写：</p>
-<pre><code class="language-js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Table</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./table.vue&quot;</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">Form</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./form.vue&quot;</span>;
-
-<span class="hljs-keyword">import</span> lib2 <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./lib2.js&quot;</span>;
-<span class="hljs-keyword">import</span> lib3 <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./lib3.js&quot;</span>;
-
-<span class="hljs-keyword">const</span> component = [<span class="hljs-title class_">Table</span>,  <span class="hljs-title class_">Form</span> ];
-
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">install</span> = <span class="hljs-title class_">App</span> =&gt; {
-    component.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> {
-        <span class="hljs-title class_">App</span>.<span class="hljs-title function_">component</span>(item.<span class="hljs-property">name</span>, item);
-    });
+<blockquote>
+<p>修改数据</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-title class_">UserModel</span>.<span class="hljs-title function_">updateOne</span>({ <span class="hljs-attr">_id</span>: <span class="hljs-string">&#x27;5e12ac19a1b9cfab59fbd913&#x27;</span> }, { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;王小二&#x27;</span> }, <span class="hljs-function">(<span class="hljs-params">err, docs</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;修改数据错误&#x27;</span>, err);
+    <span class="hljs-keyword">return</span>;
+  }
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(docs)
+})
+</code></pre>
+<blockquote>
+<p>修改后的数据</p>
+</blockquote>
+<pre><code class="language-js">{
+    <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12ac19a1b9cfab59fbd913&quot;</span>),
+    <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
+    <span class="hljs-string">&quot;name&quot;</span> : <span class="hljs-string">&quot;王小二&quot;</span>,
+    <span class="hljs-string">&quot;age&quot;</span> : <span class="hljs-number">20</span>,
+    <span class="hljs-string">&quot;mobile&quot;</span> : <span class="hljs-number">100</span>,
+    <span class="hljs-string">&quot;created_at&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:40:09.560Z&quot;</span>),
+    <span class="hljs-string">&quot;updated_at&quot;</span> : <span class="hljs-title class_">ISODate</span>(<span class="hljs-string">&quot;2020-01-06T03:42:51.022Z&quot;</span>),
+    <span class="hljs-string">&quot;__v&quot;</span> : <span class="hljs-number">0</span>
+}
+</code></pre>
+<h2 id="插件的使用">插件的使用</h2>
+<blockquote>
+<p>搜索插件</p>
+</blockquote>
+<p><a href="https://plugins.mongoosejs.io/">https://plugins.mongoosejs.io/</a></p>
+<blockquote>
+<p>自定义插件</p>
+</blockquote>
+<pre><code class="language-js"><span class="hljs-comment">// 定义一个插件</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">lastModified</span> = (<span class="hljs-params">schema, option</span>) =&gt; {
+  schema.<span class="hljs-title function_">add</span>({ <span class="hljs-attr">updated_at</span>: <span class="hljs-title class_">Date</span> });
+  schema.<span class="hljs-title function_">pre</span>(<span class="hljs-string">&#x27;updateOne&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">next</span>) =&gt;</span> {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">updated_at</span> = <span class="hljs-title function_">moment</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()).<span class="hljs-title function_">format</span>(<span class="hljs-string">&#x27;YYYY-MM-DD HH:mm:ss&#x27;</span>);
+    <span class="hljs-title function_">next</span>();
+  })
 }
 
-<span class="hljs-comment">// 判断是否是直接引入文件</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">window</span> !== <span class="hljs-string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="hljs-variable language_">window</span>.<span class="hljs-property">Vue</span>) {
-    <span class="hljs-title function_">install</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">Vue</span>);
-}
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
-    install,
-    <span class="hljs-title class_">Table</span>,
-    <span class="hljs-title class_">Form</span>,
-  lib2,
-  lib3
-};
+<span class="hljs-comment">// 使用插入</span>
+<span class="hljs-title class_">UserSchema</span>.<span class="hljs-title function_">plugin</span>(lastModified);
 </code></pre>
-<p>另外还需要配置一下 <code>.npmignore</code>文件，避免把不需要的代码提交上去，里面的内容可以这么写：</p>
-<pre><code class="language-bash">src/
-dist/
-public/
-vite.config.js
-README.md
-</code></pre>
-<p>好了，至此一个 vite 打包的较为详细的步骤就完成了，可以开心的写代码啦~~~</p>
 
             </div>
             <p class="_page"><span><a class="_next_arc" href="/tech/post/1025.html"> Pre </a></span><span></span> </p>
