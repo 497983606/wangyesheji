@@ -271,7 +271,7 @@ module.exports = ( tmpls, markdowns ) => {
           _indexFile =  _indexFile.replace(new RegExp(Regs.curPage), i == 0 ? '' : 'page_' + (i+1) )
           _indexFile = _indexFile.replace(new RegExp(Regs.pageNumReg), pageStr)
 
-      fs.writeFileSync( _htmlPath + `/${i == 0 ? 'index' : 'page_'+ i + 1 }.html`, _indexFile, 'utf8')
+      fs.writeFileSync( _htmlPath + `/${i == 0 ? 'index' : 'page_'+ (i + 1) }.html`, _indexFile, 'utf8')
       
     }
   }
