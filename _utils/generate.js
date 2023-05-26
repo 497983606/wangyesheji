@@ -262,7 +262,7 @@ module.exports = ( tmpls, markdowns ) => {
       
 
       for(let _i = 0; _i < pageAll; _i++){
-        pageStr += `<a ${ _i == i ? 'class="cur_page"' : "" } href="${baseUrl}/${_i == 0 ? 'index' : 'page_'+ _i}.html"> ${ _i + 1 } </a>`
+        pageStr += `<a ${ _i == i ? 'class="cur_page"' : "" } href="${baseUrl}/${_i == 0 ? '' : ('page_'+ (_i+1) + '.html') }"> ${ _i + 1 } </a>`
       }
       
       
