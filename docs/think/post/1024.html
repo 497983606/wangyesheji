@@ -7,14 +7,14 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta content="telephone=no" name="format-detection">
     <meta name="renderer" content="webkit">
-    <meta name="keywords" content="傻瓜也能看懂的人工智能教程【入门】 ">
-    <meta name="description" content="傻瓜也能看懂的人工智能教程【入门】 的前言 ">
+    <meta name="keywords" content="傻瓜也能看懂的机器学习教程【入门】 ">
+    <meta name="description" content="傻瓜也能看懂的机器学习教程【入门】 的前言 ">
 
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-    <title>傻瓜也能看懂的人工智能教程【入门】 -Wheat October</title>
+    <title>傻瓜也能看懂的机器学习教程【入门】 -Wheat October</title>
 </head>
 <body>
     <div class="_main">
@@ -24,12 +24,12 @@
 </header>
         
         <main class="_content _arc">
-            <h1>傻瓜也能看懂的人工智能教程【入门】 </h1>
+            <h1>傻瓜也能看懂的机器学习教程【入门】 </h1>
             <p class="_info"> <span> <i class="iconfont icon-riqi"></i> 2024-11-05 </span> <span class="type"> <a href='/think'>Think </a> </span></p>
             <div class="_markdown">
                 <!-- 1730775103306 -->
-<!-- 傻瓜也能看懂的人工智能教程【入门】 -->
-<!-- 傻瓜也能看懂的人工智能教程【入门】 的前言 -->
+<!-- 傻瓜也能看懂的机器学习教程【入门】 -->
+<!-- 傻瓜也能看懂的机器学习教程【入门】 的前言 -->
 <!--  -->
 <!-- Think -->
 
@@ -53,9 +53,19 @@
 <p>因为有的点在直线上方，有的在下方，直接相减后有正有负。平方让误差都变成正数，确保我们真正计算的是“距离”。另外平方还会放大较大的误差，这样在训练时会更关注偏离较大的点，让拟合的直线更加精准。</p><p>好了，这些交给计算机，他就可以开始找最优结了。</p><p>我写了这么多来说明这个问题可能很多人会觉得，<b>最小二乘法</b> 不是可以直接解决问题吗？~~~~请看文章标题，这里不解释了。</p><p>实际当中不会只有线性回归这一种，还有多项式回归、指数回归等等，上面仅仅描述一种使用计算机来求解某种边界问题的方法，旨在理解机器学习的基本原理，接下来介绍机器学习的一个重要应用，图像识别。</p><h2 id="图像识别">图像识别</h2>
 <p>我试图用最简单的方法来描述电脑是如何识别一个图片里含有人脸。上面已经描述了电脑是如何找到众多点线性回归线的，那么现在看下面的图：</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105163247.png /> </center>
 
-<p>这条用于分割红色和青色的直线该怎么找到呢？回顾上一章节的方法和看图，我们可以判断这条直线必须是在青色点上方，也就是青色点的y值永远小于直线的y值，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>≤</mo><mi>k</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y_i ≤ kx + b </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span> 而红色点相反 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>≥</mo><mi>k</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y_i ≥ kx + b  </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span>，看图，发现这条直线的 k 、 b取值区间很大，很多直线符合这个要求，所以不难得出当点越多时，我们的直线描述的越准确，但现实中往往会出现下面这样的情况：</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105165359.png /> </center>
+<p>这条用于分割红色和青色的直线该怎么找到呢？回顾上一章节的方法和看图，我们可以判断这条直线必须是在青色点上方，也就是青色点的 y 值永远小于直线的 y 值，也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>≤</mo><mi>k</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y_i ≤ kx + b </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span> 而红色点相反 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>≥</mo><mi>k</mi><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex"> y_i ≥ kx + b  </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">b</span></span></span></span>，看图，发现这条直线的 k 、 b取值区间很大，很多直线符合这个要求，所以不难得出当点越多时，我们的直线描述的越准确，但现实中往往会出现下面这样的情况：</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105165359.png /> </center>
 
-<p>这又该如何表示呢？你会发现无论如何都没法用直线将两种颜色的点区分开，聪明的你肯定想到我是否可以将 x 值大于 0 的点的 x 值取反，然后再用直线来区分，这样就可以了。</p>
+<p>这又该如何表示呢？你会发现无论如何都没法用直线将两种颜色的点区分开，聪明的你肯定想到我是否可以将 y 值小于 0 的点的 x 值取反，然后再用直线来区分，这样就可以了。</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105171135.png /> </center>
+
+<p>可是实际当中这有什么用呢？来看下面的图片：</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105163934.png /> </center>
+
+<p>计算机提取人脸特征点？但是计算机是怎么知道人脸的特征点的呢？首先需要对原始图片进行处理，怎么处理呢？就像上面最简单那个例子对像素点取反一样，可以将图形先进行处理，过程如下所示：</p><center> <img src=https://wangyesheji.cn/images/pic/1100e6a317ef49629d112c21344ccc82.png /> </center>
+
+<p>这里用到了一个叫 <a href="https://opencv.org">opencv的库 </a>来进行处理，比如将 rgb（三原色）颜色的照片处理成灰度图，再用一些算法将其处理成比较好区分边界的数据，然后提取出这些点的数据信息，但是怎么样才能知道它的边界在哪里呢？看下面的图：</p><center> <img src=https://wangyesheji.cn/images/pic/微信截图_20241105164035.png /> </center>
+
+<p>上图很容易就能明白，青色的点就是边界，为什么青色的点是边界呢？因为他外面再没有点了，对于这种点就标记为边界点，然后让计算机再挨个扫描其相邻点，就像为其找气孔一样。一般情况下像人脸识别我们用找边界的办法，知道眼睛、鼻子、嘴巴等位置、尺寸比例、在脸上的角度，然后人工标记出来，比如人工框选了眼睛，并且写出这是眼睛，然后计算机经过计算将一张照片的眼睛边界像素全部提取出来，这样的点越多，轮廓的边界线越收敛。所以我们需要大量被标记的照片给计算机去识别。一个新的问题，这样的轮廓曲线我们如何记录呢？</p><p>一般来说我们使用一个叫<b>傅里叶变换</b>的算法来描述和比对轮廓，当然还有一些其他办法（比如 Hu 矩、HOG 等），这里仅说明傅里叶变换像素矩阵来比对轮廓。</p><center> <img src=https://wangyesheji.cn/images/pic/35faa7bb0be13e139093b8915652fa37.gif /> </center>
+
+<p>如图所示，一个叫傅里叶的人发现任何一个内部不存在交叉点、仅由一根完整的封闭曲线所组成的图形，那么我们可以将其同样看作为一个周期函数，从而用一个特定的傅里叶级数给表示出来：</p>
             </div>
             <p class="_page"><span><a class="_next_arc" href="/think/post/1025.html"> Pre </a></span><span></span> </p>
         </main>
