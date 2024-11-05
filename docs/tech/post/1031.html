@@ -13,7 +13,7 @@
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
-    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <title>老掉牙技术重拾 Watcher Sender 【状态机编程】 -Wheat October</title>
 </head>
 <body>
@@ -34,16 +34,13 @@
 <!-- Tech -->
 <h3 id="写在前面">写在前面</h3>
 <blockquote>
-<p>最近在研究状态编程的思想，不想歪打正着碰到了js实现dataMap，然后引申发现这个玩意可以做到类vue bus的效果，这里记录一下发布出来，希望对一些研究全局状态监控和数据双向绑定的同学有所帮助吧，下面具体在研究数据双向绑定的原理。</p>
-</blockquote>
+<p>最近在研究状态编程的思想，不想歪打正着碰到了js实现dataMap，然后引申发现这个玩意可以做到类vue bus的效果，这里记录一下发布出来，希望对一些研究全局状态监控和数据双向绑定的同学有所帮助吧，下面具体在研究数据双向绑定的原理。</p></blockquote>
 <h2 id="首先实现一个datamap">首先实现一个dataMap</h2>
-<p>分析一下，dataMap都需要什么功能，（之前有一篇文章咱们是说过es6新增对象map和set，mao和这个有点像，但map是一个二位数据 链接&gt;&gt;）下面列举一下：</p>
-<ul>
+<p>分析一下，dataMap都需要什么功能，（之前有一篇文章咱们是说过es6新增对象map和set，mao和这个有点像，但map是一个二位数据 链接&gt;&gt;）下面列举一下：</p><ul>
 <li>增、删、改、查，这个删要可以指定key去删除。</li>
 <li>既然自己搞那就搞点原生不具备的东西，方便使用提高性能。mapData具备判断是否为空、遍历（类原生高阶函数map方法）、获取键值数组、更加方便的获取mapData长度。<br>来看一下dataMap的结构图：<br><img src="https://i.loli.net/2019/01/03/5c2d5eda9b878.png" alt=""></li>
 </ul>
-<p>来实现一下：</p>
-<pre><code class="language-js"><span class="hljs-comment">//先给原生数组加一个remove()方法</span>
+<p>来实现一下：</p><pre><code class="language-js"><span class="hljs-comment">//先给原生数组加一个remove()方法</span>
 <span class="hljs-title class_">Array</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">remove</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">s</span>) {
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-variable language_">this</span>.<span class="hljs-property">length</span>; i++) {
         <span class="hljs-keyword">if</span> (s == <span class="hljs-variable language_">this</span>[i])
@@ -51,8 +48,7 @@
     }
 }
 </code></pre>
-<p>具体实现以下dataMap这个构造函数</p>
-<pre><code class="language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">DataMap</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){
+<p>具体实现以下dataMap这个构造函数</p><pre><code class="language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">DataMap</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){
     <span class="hljs-comment">/** 存放key */</span>
     <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>();
     <span class="hljs-comment">/** 存放数据 */</span>
@@ -128,9 +124,7 @@
     };
 };
 </code></pre>
-<p>这个mapData完事，下来在说说用这个来做watcher和sender，同样的来看张流程图分析一下原理：<br><img src="https://i.loli.net/2019/01/03/5c2d6dec36359.png" alt=""></p>
-<p>上代码：</p>
-<pre><code class="language-js"><span class="hljs-keyword">var</span> eventController = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+<p>这个mapData完事，下来在说说用这个来做watcher和sender，同样的来看张流程图分析一下原理：<br><img src="https://i.loli.net/2019/01/03/5c2d6dec36359.png" alt=""></p><p>上代码：</p><pre><code class="language-js"><span class="hljs-keyword">var</span> eventController = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
     <span class="hljs-keyword">var</span> instantiated;  <span class="hljs-comment">//实例化标识符</span>
 
     <span class="hljs-keyword">function</span> <span class="hljs-title function_">init</span>(<span class="hljs-params"></span>) {
@@ -186,8 +180,7 @@
     eventController.<span class="hljs-title function_">getInstance</span>().<span class="hljs-title function_">registerEvent</span>(event, operator);
 }
 </code></pre>
-<p>如果你很熟悉vuebus的使用那么这个也很好理解，请看使用方法：</p>
-<pre><code class="language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">event</span>(<span class="hljs-params">e</span>){
+<p>如果你很熟悉vuebus的使用那么这个也很好理解，请看使用方法：</p><pre><code class="language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">event</span>(<span class="hljs-params">e</span>){
     <span class="hljs-title function_">alert</span>(e)
 }
 <span class="hljs-title function_">watcher</span>(<span class="hljs-string">&#x27;everyString&#x27;</span>,event)
@@ -196,7 +189,6 @@
 <span class="hljs-title function_">sender</span>(<span class="hljs-string">&#x27;everyString&#x27;</span>,<span class="hljs-string">&#x27;111&#x27;</span>)  <span class="hljs-comment">//alert(111)</span>
 </code></pre>
 <p>完事，有没有get到新技能。</p>
-
             </div>
             <p class="_page"><span><a class="_next_arc" href="/tech/post/1032.html"> Pre </a></span><span><a class="_pre_arc" href= "/tech/post/1030.html">Next</a></span> </p>
         </main>

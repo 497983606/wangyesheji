@@ -13,7 +13,7 @@
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
-    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <title>一文帮你搞定90%的JS手写题 -Wheat October</title>
 </head>
 <body>
@@ -34,8 +34,7 @@
 <!-- Tech -->
 
 <blockquote>
-<p>​还在害怕手写题吗，本文可以帮你扩展并巩固自己的JS基础，顺便搞定90%的手写题。在工作中还可以对常用的需求进行手写实现，比如深拷贝、防抖节流等可以直接用于往后的项目中，提高项目开发效率。不说废话了，下面就直接上代码吧。</p>
-</blockquote>
+<p>​还在害怕手写题吗，本文可以帮你扩展并巩固自己的JS基础，顺便搞定90%的手写题。在工作中还可以对常用的需求进行手写实现，比如深拷贝、防抖节流等可以直接用于往后的项目中，提高项目开发效率。不说废话了，下面就直接上代码吧。</p></blockquote>
 <h3 id="1call的实现">1.call的实现</h3>
 <ul>
 <li>第一个参数为null或者undefined时，this指向全局对象window，值为原始值的指向该原始值的自动包装对象，如 String、Number、Boolean</li>
@@ -76,15 +75,13 @@
 }
 </code></pre>
 <h3 id="3bind的实现">3.bind的实现</h3>
-<p>需要考虑：</p>
-<ul>
+<p>需要考虑：</p><ul>
 <li>bind() 除了 this 外，还可传入多个参数；</li>
 <li>bind 创建的新函数可能传入多个参数；</li>
 <li>新函数可能被当做构造函数调用；</li>
 <li>函数可能有返回值；</li>
 </ul>
-<p>实现方法：</p>
-<ul>
+<p>实现方法：</p><ul>
 <li>bind 方法不会立即执行，需要返回一个待执行的函数；（闭包）</li>
 <li>实现作用域绑定（apply）</li>
 <li>参数传递（apply 的数组传参）</li>
@@ -293,8 +290,7 @@ wonmanObj.<span class="hljs-title function_">eat</span>();
 }
 </code></pre>
 <h3 id="10promise的实现">10.Promise的实现</h3>
-<p>实现 Promise 需要完全读懂 Promise A+ 规范，不过从总体的实现上看，有如下几个点需要考虑到：</p>
-<ul>
+<p>实现 Promise 需要完全读懂 Promise A+ 规范，不过从总体的实现上看，有如下几个点需要考虑到：</p><ul>
 <li>Promise本质是一个状态机，且状态只能为以下三种：Pending（等待态）、Fulfilled（执行态）、Rejected（拒绝态），状态的变更是单向的，只能从Pending -&gt; Fulfilled 或 Pending -&gt; Rejected，状态变更不可逆</li>
 <li>then 需要支持链式调用</li>
 </ul>
@@ -888,10 +884,10 @@ str = str.<span class="hljs-title function_">split</span>(<span class="hljs-stri
 
 <span class="hljs-comment">// 定义正则表达式</span>
 <span class="hljs-keyword">let</span> re = <span class="hljs-regexp">/(\w)\1+/g</span>;
-str.<span class="hljs-title function_">replace</span>(re,<span class="hljs-function">(<span class="hljs-params">$<span class="hljs-number">0</span>,$<span class="hljs-number">1</span></span>) =&gt;</span> {
-    <span class="hljs-keyword">if</span>(num &lt; $<span class="hljs-number">0.</span>length){
-        num = $<span class="hljs-number">0.</span>length;
-        char = $<span class="hljs-number">1</span>;        
+str.<span class="hljs-title function_">replace</span>(re,<span class="hljs-function">(<span class="hljs-params">$0,$1</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span>(num &lt; $0.<span class="hljs-property">length</span>){
+        num = $0.<span class="hljs-property">length</span>;
+        char = $1;        
     }
 });
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`字符最多的是<span class="hljs-subst">${char}</span>，出现了<span class="hljs-subst">${num}</span>次`</span>);

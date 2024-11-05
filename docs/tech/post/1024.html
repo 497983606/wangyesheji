@@ -13,7 +13,7 @@
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
-    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <title>mongoDB 的一些总结 -Wheat October</title>
 </head>
 <body>
@@ -50,8 +50,7 @@ mongoose.<span class="hljs-title function_">connect</span>(<span class="hljs-str
 </code></pre>
 <h2 id="2-使用-schema-定义">2 使用 schema 定义</h2>
 <blockquote>
-<p>定义</p>
-</blockquote>
+<p>定义</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
@@ -66,8 +65,7 @@ mongoose.<span class="hljs-title function_">connect</span>(<span class="hljs-str
 <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>=mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>,<span class="hljs-title class_">UserSchema</span>,<span class="hljs-string">&#x27;user&#x27;</span>);
 </code></pre>
 <blockquote>
-<p>使用</p>
-</blockquote>
+<p>使用</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/user&#x27;</span>);
 
 <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserModel</span>({
@@ -94,16 +92,14 @@ user.<span class="hljs-title function_">save</span>(<span class="hljs-function">
 </code></pre>
 <h2 id="3-使用预定义模型修饰">3 使用预定义模型修饰</h2>
 <blockquote>
-<p>mongoose中内置的预定义修饰符主要有</p>
-</blockquote>
+<p>mongoose中内置的预定义修饰符主要有</p></blockquote>
 <ul>
 <li>lowercase</li>
 <li>uppercase</li>
 <li>trim</li>
 </ul>
 <blockquote>
-<p>在schema中使用</p>
-</blockquote>
+<p>在schema中使用</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
@@ -130,8 +126,7 @@ user.<span class="hljs-title function_">save</span>(<span class="hljs-function">
 </code></pre>
 <h2 id="4-mogoose中预定义的set和get修饰符">4 mogoose中预定义的set和get修饰符</h2>
 <blockquote>
-<p>定义schema</p>
-</blockquote>
+<p>定义schema</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
 
 <span class="hljs-keyword">const</span> <span class="hljs-title class_">NewSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>({
@@ -157,8 +152,7 @@ user.<span class="hljs-title function_">save</span>(<span class="hljs-function">
 <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;New&#x27;</span>, <span class="hljs-title class_">NewSchema</span>, <span class="hljs-string">&#x27;new&#x27;</span>);
 </code></pre>
 <blockquote>
-<p>插入一条数据</p>
-</blockquote>
+<p>插入一条数据</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">NewModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/new&#x27;</span>);
 
 <span class="hljs-keyword">const</span> news = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NewModel</span>({
@@ -170,8 +164,7 @@ user.<span class="hljs-title function_">save</span>(<span class="hljs-function">
 news.<span class="hljs-title function_">save</span>();
 </code></pre>
 <blockquote>
-<p>查询结果</p>
-</blockquote>
+<p>查询结果</p></blockquote>
 <pre><code class="language-js">{
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e0fe0b971428227107241c1&quot;</span>),
     <span class="hljs-string">&quot;title&quot;</span> : <span class="hljs-string">&quot;文章一&quot;</span>,
@@ -181,25 +174,18 @@ news.<span class="hljs-title function_">save</span>();
 }
 </code></pre>
 <h2 id="5-mongodb中的索引">5 mongodb中的索引</h2>
-<p>1、索引的作用</p>
-<blockquote>
-<p>索引是对数据库表中一列或多列的值进行排序的一种结构，可以让我们查询数据库变得更快。MongoDB 的索引几乎与传统的关系型数据库一模一样，这其中也包括一些基本的查询优化技巧。</p>
-</blockquote>
-<p>2、创建索引</p>
-<pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({字段:<span class="hljs-number">1</span>}) <span class="hljs-comment">// 普通索引</span>
+<p>1、索引的作用</p><blockquote>
+<p>索引是对数据库表中一列或多列的值进行排序的一种结构，可以让我们查询数据库变得更快。MongoDB 的索引几乎与传统的关系型数据库一模一样，这其中也包括一些基本的查询优化技巧。</p></blockquote>
+<p>2、创建索引</p><pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({字段:<span class="hljs-number">1</span>}) <span class="hljs-comment">// 普通索引</span>
 </code></pre>
-<p>3、获取索引</p>
-<pre><code class="language-js">db.user.getIndexes()
+<p>3、获取索引</p><pre><code class="language-js">db.user.getIndexes()
 </code></pre>
-<p>4、删除索引</p>
-<pre><code class="language-js">db.user.dropIndex({字段:1})
+<p>4、删除索引</p><pre><code class="language-js">db.user.dropIndex({字段:1})
 </code></pre>
-<p>5、复合索引</p>
-<pre><code class="language-js"><span class="hljs-comment">// 数字 1 表示 username 键的索引按升序存储，-1 表示 age 键的索引按照降序方式存储</span>
+<p>5、复合索引</p><pre><code class="language-js"><span class="hljs-comment">// 数字 1 表示 username 键的索引按升序存储，-1 表示 age 键的索引按照降序方式存储</span>
 db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({<span class="hljs-string">&quot;username&quot;</span>:<span class="hljs-number">1</span>, <span class="hljs-string">&quot;age&quot;</span>:-<span class="hljs-number">1</span>})
 </code></pre>
-<p>6、唯一索引</p>
-<pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({<span class="hljs-string">&quot;userid&quot;</span>:<span class="hljs-number">1</span>},{<span class="hljs-string">&quot;unique&quot;</span>:<span class="hljs-literal">true</span>})
+<p>6、唯一索引</p><pre><code class="language-js">db.<span class="hljs-property">user</span>.<span class="hljs-title function_">ensureIndex</span>({<span class="hljs-string">&quot;userid&quot;</span>:<span class="hljs-number">1</span>},{<span class="hljs-string">&quot;unique&quot;</span>:<span class="hljs-literal">true</span>})
 </code></pre>
 <h2 id="6-mongoose中的schema创建索引">6 mongoose中的schema创建索引</h2>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db&#x27;</span>);
@@ -229,8 +215,7 @@ db.<span class="hljs-property">user</span>.<span class="hljs-title function_">en
 </code></pre>
 <h2 id="7-时间的使用">7 时间的使用</h2>
 <blockquote>
-<p>定义schema中使用timestamps属性</p>
-</blockquote>
+<p>定义schema中使用timestamps属性</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db.js&#x27;</span>);
 
 <span class="hljs-keyword">var</span> <span class="hljs-title class_">UserSchema</span> = <span class="hljs-keyword">new</span> mongoose.<span class="hljs-title class_">Schema</span>({
@@ -249,8 +234,7 @@ db.<span class="hljs-property">user</span>.<span class="hljs-title function_">en
 <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>, <span class="hljs-string">&#x27;user&#x27;</span>);
 </code></pre>
 <blockquote>
-<p>创建数据</p>
-</blockquote>
+<p>创建数据</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserModel</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./model/user&#x27;</span>);
 
 <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserModel</span>({
@@ -263,8 +247,7 @@ db.<span class="hljs-property">user</span>.<span class="hljs-title function_">en
 user.<span class="hljs-title function_">save</span>();
 </code></pre>
 <blockquote>
-<p>查询出创建后的数据</p>
-</blockquote>
+<p>查询出创建后的数据</p></blockquote>
 <pre><code class="language-js">{
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12a7f6c63086a54eed0a47&quot;</span>),
     <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
@@ -277,8 +260,7 @@ user.<span class="hljs-title function_">save</span>();
 }
 </code></pre>
 <blockquote>
-<p>修改createdAt和updatedAt显示</p>
-</blockquote>
+<p>修改createdAt和updatedAt显示</p></blockquote>
 <pre><code class="language-js"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./db.js&#x27;</span>);
 
 
@@ -301,8 +283,7 @@ user.<span class="hljs-title function_">save</span>();
 <span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>, <span class="hljs-string">&#x27;user&#x27;</span>);
 </code></pre>
 <blockquote>
-<p>创建出来的数据</p>
-</blockquote>
+<p>创建出来的数据</p></blockquote>
 <pre><code class="language-js">{
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12ac19a1b9cfab59fbd913&quot;</span>),
     <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
@@ -315,8 +296,7 @@ user.<span class="hljs-title function_">save</span>();
 }
 </code></pre>
 <blockquote>
-<p>修改数据</p>
-</blockquote>
+<p>修改数据</p></blockquote>
 <pre><code class="language-js"><span class="hljs-title class_">UserModel</span>.<span class="hljs-title function_">updateOne</span>({ <span class="hljs-attr">_id</span>: <span class="hljs-string">&#x27;5e12ac19a1b9cfab59fbd913&#x27;</span> }, { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;王小二&#x27;</span> }, <span class="hljs-function">(<span class="hljs-params">err, docs</span>) =&gt;</span> {
   <span class="hljs-keyword">if</span> (err) {
     <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;修改数据错误&#x27;</span>, err);
@@ -326,8 +306,7 @@ user.<span class="hljs-title function_">save</span>();
 })
 </code></pre>
 <blockquote>
-<p>修改后的数据</p>
-</blockquote>
+<p>修改后的数据</p></blockquote>
 <pre><code class="language-js">{
     <span class="hljs-string">&quot;_id&quot;</span> : <span class="hljs-title class_">ObjectId</span>(<span class="hljs-string">&quot;5e12ac19a1b9cfab59fbd913&quot;</span>),
     <span class="hljs-string">&quot;status&quot;</span> : <span class="hljs-number">0</span>,
@@ -341,12 +320,9 @@ user.<span class="hljs-title function_">save</span>();
 </code></pre>
 <h2 id="插件的使用">插件的使用</h2>
 <blockquote>
-<p>搜索插件</p>
-</blockquote>
-<p><a href="https://plugins.mongoosejs.io/">https://plugins.mongoosejs.io/</a></p>
-<blockquote>
-<p>自定义插件</p>
-</blockquote>
+<p>搜索插件</p></blockquote>
+<p><a href="https://plugins.mongoosejs.io/">https://plugins.mongoosejs.io/</a></p><blockquote>
+<p>自定义插件</p></blockquote>
 <pre><code class="language-js"><span class="hljs-comment">// 定义一个插件</span>
 <span class="hljs-keyword">const</span> <span class="hljs-title function_">lastModified</span> = (<span class="hljs-params">schema, option</span>) =&gt; {
   schema.<span class="hljs-title function_">add</span>({ <span class="hljs-attr">updated_at</span>: <span class="hljs-title class_">Date</span> });

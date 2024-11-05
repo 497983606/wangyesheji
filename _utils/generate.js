@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const fsExtra = require("fs-extra");
 const marked = require("marked");
+const katex = require('katex');
 const highlight = require("highlight.js");
 const { config } = require('../package.json')
 
@@ -13,6 +14,38 @@ const _tmplPath = path.join(__dirname, "../_tmpl"),
       _htmlPath = path.join(__dirname, "../docs")
 const Regs = require('./regs');
 
+// 自定义 marked 渲染器
+const renderer = new marked.Renderer();
+// 使用 katex 渲染行内公式
+// 行内公式解析
+renderer.text = (text) => {
+  return text.replace(/\$(.+?)\$/g, (_, math) => {
+      math = math.replace(/<br>/g, '').replace(/&lt;br&gt;/g, '');
+      try {
+          return katex.renderToString(math, { throwOnError: false, strict: "ignore" });
+      } catch (error) {
+          console.error("Error rendering inline formula:", error);
+          return math; // 返回原始公式，避免崩溃
+      }
+  });
+};
+
+// 块级公式解析
+renderer.paragraph = (text) => {
+  // 检查块级公式
+  if (/\$\$(.+?)\$\$/.test(text)) {
+      return text.replace(/\$\$(.+?)\$\$/g, (_, math) => {
+          math = math.replace(/<br>/g, '').replace(/&lt;br&gt;/g, '');
+          try {
+              return katex.renderToString(math, { displayMode: true, throwOnError: false, strict: "ignore" });
+          } catch (error) {
+              console.error("Error rendering block formula:", error);
+              return math; // 返回原始公式，避免崩溃
+          }
+      });
+  }
+  return `<p>${text}</p>`;
+};
 // CONFIG MARKED
 marked.setOptions({
   gfm: true,
@@ -24,6 +57,7 @@ marked.setOptions({
   smartypants: false,
   codePrefix:"hljs",
   tableClass:"table",
+  renderer,
   highlight: (code,lang) => {
       return highlight.highlightAuto(code,[lang]).value;
   }
@@ -33,6 +67,7 @@ marked.setOptions({
 module.exports = ( tmpls, markdowns ) => {
   // RECREATE DIR ADN MOVE ASSET DIR TO HTML DIR
   console.log('delete html dir.')
+
   deleteAll(_htmlPath) 
   console.log('make html dir.')
   fs.mkdirSync(_htmlPath)
@@ -280,6 +315,7 @@ module.exports = ( tmpls, markdowns ) => {
 
 // CLEAR DIR
 function deleteAll(path) {
+  debugger
   let files = [];
   if( fs.existsSync(path) ) {
     files = fs.readdirSync(path);

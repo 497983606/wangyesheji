@@ -46,5 +46,9 @@
     "fs-extra": "^10.1.0",
     "highlight.js": "^11.6.0",
     "marked": "^4.0.19"
+  },
+  "dependencies": {
+    "katex": "^0.16.11",
+    "markdown-it-katex": "^2.0.3"
   }
 }

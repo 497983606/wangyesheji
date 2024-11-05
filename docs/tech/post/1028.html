@@ -13,7 +13,7 @@
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
-    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <title>vue electron-serialport 解决方案 -Wheat October</title>
 </head>
 <body>
@@ -33,27 +33,21 @@
 <!--  -->
 <!-- Tech -->
 <h1 id="安装-electron">安装 electron</h1>
-<p>正常使用 cli 安装 vue，然后使用</p>
-<pre><code class="language-bash">vue add electron-builder
+<p>正常使用 cli 安装 vue，然后使用</p><pre><code class="language-bash">vue add electron-builder
 </code></pre>
-<p>命令为 cli 安装插件，这个时候这个插件就会在目录下创建一堆文件并且改变文件夹</p>
-<p>然后在项目根目录下创建 <code>.npmrc</code>文件，在里面粘贴，原因可参见这篇文章：<code>https://segmentfault.com/q/1010000007594059</code></p>
-<pre><code class="language-bash">registry=https://registry.npm.taobao.org
+<p>命令为 cli 安装插件，这个时候这个插件就会在目录下创建一堆文件并且改变文件夹</p><p>然后在项目根目录下创建 <code>.npmrc</code>文件，在里面粘贴，原因可参见这篇文章：<code>https://segmentfault.com/q/1010000007594059</code></p><pre><code class="language-bash">registry=https://registry.npm.taobao.org
 sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
 phantomjs_cdnurl=http://npm.taobao.org/mirrors/phantomjs
 electron_mirror=http://npm.taobao.org/mirrors/electron/
 </code></pre>
-<p>然后 install 推荐使用 yarn</p>
-<h1 id="serialport-支持">serialport 支持</h1>
-<p>如果项目中有用到 serialport （各版本差异比较大，注意api），在<code>vue.config.js</code> 里面增加</p>
-<pre><code class="language-js">...
+<p>然后 install 推荐使用 yarn</p><h1 id="serialport-支持">serialport 支持</h1>
+<p>如果项目中有用到 serialport （各版本差异比较大，注意api），在<code>vue.config.js</code> 里面增加</p><pre><code class="language-js">...
 <span class="hljs-attr">pluginOptions</span>: {
   <span class="hljs-attr">electronBuilder</span>: {
     <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
 ...
 </code></pre>
-<p>PS：一个比较完整的打包配置</p>
-<pre><code class="language-js"><span class="hljs-attr">electronBuilder</span>: {
+<p>PS：一个比较完整的打包配置</p><pre><code class="language-js"><span class="hljs-attr">electronBuilder</span>: {
   <span class="hljs-comment">// List native deps here if they don&#x27;t work</span>
   <span class="hljs-attr">externals</span>: [<span class="hljs-string">&#x27;serialport&#x27;</span>],
   <span class="hljs-attr">nodeModulesPath</span>: [<span class="hljs-string">&#x27;../../node_modules&#x27;</span>, <span class="hljs-string">&#x27;./node_modules&#x27;</span>],

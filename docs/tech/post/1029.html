@@ -13,7 +13,7 @@
     <link rel="short icon" href="../../assets/logo@x1.png" type="image/x-icon">
     <link rel="stylesheet" href="../../assets/common.css">
     <link rel="stylesheet" href="../../assets/iconfont.css">
-    <link rel="stylesheet" href="../../assets/an-old-hope.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
     <title>NodeJs 爬取节假日数据 -Wheat October</title>
 </head>
 <body>
@@ -34,11 +34,9 @@
 <!-- Tech -->
 
 <blockquote>
-<p>爬取地址： <a href="https://fangjia.51240.com/2020__fangjia/">https://fangjia.51240.com/2020__fangjia/</a> </p>
-</blockquote>
+<p>爬取地址： <a href="https://fangjia.51240.com/2020__fangjia/">https://fangjia.51240.com/2020__fangjia/</a> </p></blockquote>
 <h3 id="爬取格式">爬取格式</h3>
-<p>2019年节日放假安排查询</p>
-<table>
+<p>2019年节日放假安排查询</p><table>
 <thead>
 <tr>
 <th>节日</th>
@@ -91,17 +89,11 @@
 </tr>
 </tbody></table>
 <h3 id="使用">使用</h3>
-<p>安装：</p>
-<pre><code class="language-bash">npm install
+<p>安装：</p><pre><code class="language-bash">npm install
 </code></pre>
-<p>启动：</p>
-<pre><code class="language-bash">node index.js
+<p>启动：</p><pre><code class="language-bash">node index.js
 </code></pre>
-<p>爬取： </p>
-<p>浏览器访问：<code>127.0.0.1/get/{year}</code></p>
-<p>爬取后，访问结果会持久化在 <code>/views/holidays/{year}.json</code>，可直接通过 <code>127.0.0.1/{year}.json</code> 访问</p>
-<p>返回结果：</p>
-<pre><code>{
+<p>爬取： </p><p>浏览器访问：<code>127.0.0.1/get/{year}</code></p><p>爬取后，访问结果会持久化在 <code>/views/holidays/{year}.json</code>，可直接通过 <code>127.0.0.1/{year}.json</code> 访问</p><p>返回结果：</p><pre><code>{
   year: {year},
   holidays: {
     01: {
@@ -134,7 +126,6 @@
 })
 </code></pre>
 <p>git：<a href="https://gitee.com/sk88/get_holiday">https://gitee.com/sk88/get_holiday</a></p>
-
             </div>
             <p class="_page"><span><a class="_next_arc" href="/tech/post/1030.html"> Pre </a></span><span><a class="_pre_arc" href= "/tech/post/1028.html">Next</a></span> </p>
         </main>
