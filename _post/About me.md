@@ -19,7 +19,7 @@ prototype design
 * Familiar with Nodejs (Express/Koa) and MySQL Full stack development. 
 ## Links
 
-* Kodev: https://taiwutech.com/ Sass software similar to airtable, I designed and
+* Kodev: http://kodev.taiwu.tech:7002 Sass software similar to airtable, I designed and
 developed independently
 * Blog: https://wangyesheji.cn/
 * Other (in 2016): https://wangyesheji.cn/images/me
